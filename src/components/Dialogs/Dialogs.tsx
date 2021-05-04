@@ -2,12 +2,18 @@ import React from 'react'
 import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {DialogsPageType} from "../../redux/state";
+import {ActionsTypes, DialogsPageType} from "../../redux/state";
 
-const Dialogs: React.FC<DialogsPageType> = ({dialogs, messages}) => {
+type PropsType = {
+    dialogsPage: DialogsPageType
+    dispatch: (action: ActionsTypes) => void
 
-    let dialogsElements = dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messagesElements = messages.map(m => <Message message={m.message} id={m.id}/>)
+}
+
+const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
+
+    let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
+    let messagesElements = dialogsPage.messages.map(m => <Message message={m.message} id={m.id}/>)
 
     let newMessageElement = React.createRef<HTMLTextAreaElement>()
     let addMessage = () => {

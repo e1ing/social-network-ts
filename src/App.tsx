@@ -1,17 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {addPost, RootStateType, updateNewPostText} from "./redux/state";
+import {ActionsTypes, RootStateType} from "./redux/state";
 
+type PropsType = {
+    state: RootStateType
+    dispatch: (action: ActionsTypes) => void
+}
 
-const App: React.FC<RootStateType> = (
-    {
-        profilePage, dialogsPage, sidebar
-    }) => {
+const App: React.FC<PropsType > = (props) => {
+
 
     return (
         <BrowserRouter>
@@ -19,12 +21,12 @@ const App: React.FC<RootStateType> = (
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <Dialogs dialogs={dialogsPage.dialogs}
-                                                                  messages={dialogsPage.messages}/>}/>
-                    <Route path='/profile' render={() => <Profile posts={profilePage.posts}
-                                                                  newPostText={profilePage.newPostText}
-                                                                  addPostCallback={addPost}
-                                                                  updateNewPostText={updateNewPostText}/>}/>
+                    <Route path='/dialogs' render={() =>
+                        <Dialogs dialogsPage={props.state.dialogsPage}  dispatch={props.dispatch}/>}/>
+                    <Route path='/profile' render={() =>
+                        <Profile profilePage={props.state.profilePage}
+                                 dispatch={props.dispatch}
+                                 />}/>
                 </div>
             </div>
         </BrowserRouter>)
