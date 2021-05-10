@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {ActionsTypes, DialogsPageType} from "../../redux/state";
+import store, {ActionsTypes, DialogsPageType, sendMessageAC, updateNewMessageBodyAC} from "../../redux/state";
 
 type PropsType = {
     dialogsPage: DialogsPageType
@@ -12,6 +12,8 @@ type PropsType = {
 
 const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
 
+    let state = store.getState().dialogsPage;
+
     let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElements = dialogsPage.messages.map(m => <Message message={m.message} id={m.id}/>)
 
@@ -20,6 +22,15 @@ const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
         let mess = newMessageElement.current?.value;
         alert(mess);
     }
+    let newMessageBody = state.newMessageBody;
+    let onSendMessageClick = () => {
+        store.dispatch(sendMessageAC())
+    }
+    let onNewMessageChange =(e: number) => {
+       let body = e.target.value;
+       store.dispatch(updateNewMessageBodyAC(body))
+    }
+}
 
     return (
         <div className={classes.dialogs}>
@@ -27,7 +38,14 @@ const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
                 {dialogsElements}
             </div>
             <div className={classes.messages}>
-                {messagesElements}
+                <div>{messagesElements}/<div>
+                    <div>
+                        <div><textarea value={newMessageBody}
+                                       onCjange={onNewMessageChange}
+                                       placeholder="Enter message"> </textarea></div>
+                        <div><button onClick={onSendMessageClick}> Send </button></div>
+                    </div>
+
             </div>
             <button >Send</button>
             <textarea ref={newMessageElement}></textarea>

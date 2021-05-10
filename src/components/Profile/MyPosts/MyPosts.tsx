@@ -28,7 +28,7 @@ const MyPosts: React.FC<PropsType> = ({
         dispatch(addPostAC());
     }
 
-    let onPostChange = (e: any) => {
+    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // if (newPostElement.current){
         //     let text = newPostElement.current.value;
         //     let action = updateNewPostTextAC(text);
