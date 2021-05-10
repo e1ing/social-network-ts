@@ -22,15 +22,19 @@ const MyPosts: React.FC<PropsType> = ({
     let postsElements = posts.map(p =>
         <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
-    let newPostElement = React.createRef();
+    // let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
-        dispatch(addPostAC(newPostText));
+        dispatch(addPostAC());
     }
 
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        let action = updateNewPostTextAC(text);
+    let onPostChange = (e: any) => {
+        // if (newPostElement.current){
+        //     let text = newPostElement.current.value;
+        //     let action = updateNewPostTextAC(text);
+        //     dispatch(action)
+        // }
+        let action = updateNewPostTextAC(e.currentTarget.value);
         dispatch(action)
     }
 
@@ -45,6 +49,7 @@ const MyPosts: React.FC<PropsType> = ({
             <div>
                 <div>
                     <textarea
+                        // ref={newPostText}
                         onChange={onPostChange}
                         value={newPostText}
                     />

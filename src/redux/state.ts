@@ -48,9 +48,8 @@ export type StoreType = {
 }
 export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>;
 
-export const addPostAC = (postText: string) => ({
-        type: ADD_POST,
-        postText: postText
+export const addPostAC = () => ({
+        type: ADD_POST
     }) as const
 
 
@@ -113,6 +112,7 @@ const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
                 this._state.profilePage.newPostText = ''
                 this._callSubscriber(this._state);
             } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+                debugger
                 this._state.profilePage.newPostText = action.newText;
                 this._callSubscriber(this._state);
             }

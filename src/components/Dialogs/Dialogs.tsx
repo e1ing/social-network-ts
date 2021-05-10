@@ -29,7 +29,7 @@ const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
             <div className={classes.messages}>
                 {messagesElements}
             </div>
-            <button>Send</button>
+            <button >Send</button>
             <textarea ref={newMessageElement}></textarea>
 
 

@@ -15,7 +15,7 @@ const Profile: React.FC<PropsType> = ({profilePage,dispatch}) => {
         <MyPosts
             posts={profilePage.posts}
             newPostText={profilePage.newPostText}
-            dispatch={store.dispatch}/>
+            dispatch={dispatch}/>
     </div>
 }
 export default Profile;
