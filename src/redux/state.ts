@@ -1,4 +1,7 @@
 import {v1} from "uuid";
+import {profileReduser} from "./profile-reducer";
+import {dialogsReduser} from "./dialogs-reducer";
+import {sidebarReduser} from "./sidebar-reducer";
 
 export type PostType = {
     id: string
@@ -48,24 +51,12 @@ export type StoreType = {
 }
 export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>;
 
-export const addPostAC = () => ({type: ADD_POST }) as const
 
-export const updateNewPostTextAC = (text: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-}) as const
 
-export const sendMessageAC = () => ({type: SEND_MESSAGE}) as const
 
-export const updateNewMessageBodyAC = (body) => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    newText: body
-}) as const
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
-const SEND_MESSAGE = "SEND_MESSAGE"
+
+
 
 let store: StoreType = {
     _state: {
@@ -108,27 +99,11 @@ let store: StoreType = {
     },
 
     dispatch(action: ActionsTypes) {
-        if (action.type === "ADD-POST") {
-            let newPost: PostType = {
-                id: v1(),
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this._state);
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-            debugger
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogsPage.newMessageBody = action.body;
-            this._callSubscriber(this._state);
-        } else if (action.type === SEND_MESSAGE) {
-            let body = this._state.dialogsPage.newMessageBody = "";
-            this._state.dialogsPage.messages.push();
-            this._callSubscriber(this._state);
-        }
+        this._state.profilePage = profileReduser(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReduser(this._state.sidebar, action)
+
+   this._callSubscriber(this._state);
     }
 }
 

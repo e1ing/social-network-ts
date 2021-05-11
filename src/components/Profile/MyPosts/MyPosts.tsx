@@ -5,7 +5,7 @@ import {
     ActionsTypes,
     addPostAC, PostType,
     updateNewPostTextAC
-} from "../../../redux/state";
+} from "../../../redux/profile-reducer";
 
 type PropsType = {
     posts: Array<PostType>
