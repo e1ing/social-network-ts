@@ -1,7 +1,7 @@
 import {v1} from "uuid";
-import {profileReduser} from "./profile-reducer";
-import {dialogsReduser} from "./dialogs-reducer";
-import {sidebarReduser} from "./sidebar-reducer";
+import dialogsReduser from "./dialogs-reducer";
+import profileReduser, {addPostAC, updateNewPostTextAC} from "./profile-reducer";
+import sidebarReduser from "./sidebar-reducer";
 
 export type PostType = {
     id: string
@@ -27,6 +27,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    newMessageBody: string //тут спросить
 }
 
 export type SidebarType = {}
@@ -34,7 +35,8 @@ export type SidebarType = {}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
-    sidebar: SidebarType
+    // sidebar: SidebarType
+
 }
 
 export type ProfileCallbacksType = {
@@ -50,11 +52,6 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }
 export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>;
-
-
-
-
-
 
 
 
@@ -85,14 +82,14 @@ let store: StoreType = {
             ],
             newMessageBody: ""
         },
-        sidebar: {}
+        // sidebar: {}
     },
     _callSubscriber() {
         console.log('State changed');
     },
 
     getState() {
-        return this._state;
+        return this._state; //спросить почему функция с ()
     },
     subscribe(observer) {
         this._callSubscriber = observer; //наблюдатель
@@ -101,7 +98,7 @@ let store: StoreType = {
     dispatch(action: ActionsTypes) {
         this._state.profilePage = profileReduser(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action)
-        this._state.sidebar = sidebarReduser(this._state.sidebar, action)
+        // this._state.sidebar = sidebarReduser(this._state.sidebar, action)
 
    this._callSubscriber(this._state);
     }

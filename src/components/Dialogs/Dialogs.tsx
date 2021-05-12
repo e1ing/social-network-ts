@@ -1,18 +1,16 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import store, {ActionsTypes, DialogsPageType, sendMessageAC, updateNewMessageBodyAC} from "../../redux/profile-reducer";
-
+import {DialogsPageType, RootStateType} from '../../redux/state';
+import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
 type PropsType = {
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionsTypes) => void
-
+    dispatch: (action: any) => void
+    state: RootStateType
 }
 
-const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
-
-    let state = store.getState().dialogsPage;
+const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch, state}) => {
 
     let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElements = dialogsPage.messages.map(m => <Message message={m.message} id={m.id}/>)
@@ -22,37 +20,43 @@ const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
         let mess = newMessageElement.current?.value;
         alert(mess);
     }
-    let newMessageBody = state.newMessageBody;
+    let newMessageBody = dialogsPage.newMessageBody;
     let onSendMessageClick = () => {
-        store.dispatch(sendMessageAC())
+        dispatch(sendMessageAC())
     }
-    let onNewMessageChange =(e: number) => {
-       let body = e.target.value;
-       store.dispatch(updateNewMessageBodyAC(body))
+    let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.target.value;
+        dispatch(updateNewMessageBodyAC(body))
     }
-}
 
     return (
         <div className={classes.dialogs}>
+
             <div className={classes.dialogItems}>
                 {dialogsElements}
             </div>
+
             <div className={classes.messages}>
-                <div>{messagesElements}/<div>
-                    <div>
-                        <div><textarea value={newMessageBody}
-                                       onChange={onNewMessageChange}
-                                       placeholder="Enter message"> </textarea></div>
-                        <div><button onClick={onSendMessageClick}> Send </button></div>
+                <div>{messagesElements}</div>
+                        <div>
+                            <div>
+                                <textarea value={newMessageBody}
+                                          onChange={onNewMessageChange}
+                                          placeholder="Enter message">
+                            </textarea>
+                            </div>
+
+                            <div>
+                                <button onClick={onSendMessageClick}> Send</button>
+                            </div>
+                        </div>
+
                     </div>
+                    <button>Send</button>
+                    <textarea ref={newMessageElement}></textarea>
 
-            </div>
-            <button >Send</button>
-            <textarea ref={newMessageElement}></textarea>
+                </div>
+                )
+                }
 
-
-        </div>
-    )
-}
-
-export default Dialogs;
+                export default Dialogs;

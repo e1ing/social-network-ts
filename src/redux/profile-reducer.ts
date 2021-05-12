@@ -1,10 +1,10 @@
 import {v1} from "uuid";
-import {PostType} from "./state";
+import {ActionsTypes, PostType, ProfilePageType, RootStateType} from "./state";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
-export const profileReduser = (state, action) => {
+ const profileReduser = (state: ProfilePageType, action: ActionsTypes) => {
 
     switch (action.type) {
         case ADD_POST:
@@ -25,12 +25,11 @@ export const profileReduser = (state, action) => {
     }
 
 
-    export const addPostAC = () => ({type: ADD_POST }) as const
-
-    export const updateNewPostTextAC = (text: string) => ({
-        type: UPDATE_NEW_POST_TEXT,
-        newText: text
-    }) as const
-
-
 }
+export const addPostAC = () => ({type: ADD_POST }) as const
+
+export const updateNewPostTextAC = (text: string) => ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText: text
+}) as const
+export default profileReduser;

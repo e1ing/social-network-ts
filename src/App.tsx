@@ -22,7 +22,7 @@ const App: React.FC<PropsType > = ({state, dispatch}) => {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() =>
-                        <Dialogs store={store} dialogsPage={state.dialogsPage}  dispatch={dispatch}/>}/>
+                        <Dialogs state={state} dialogsPage={state.dialogsPage}  dispatch={dispatch}/>}/>
                     <Route path='/profile' render={() =>
                         <Profile profilePage={state.profilePage}
                                  dispatch={dispatch}
