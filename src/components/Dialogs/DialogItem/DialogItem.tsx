@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './../Dialogs.module.css'
 import {NavLink} from 'react-router-dom';
 import Message from "../Message/Message";
-import {DialogsPageType, DialogType} from "../../../redux/state";
+import {DialogsPageType, DialogType} from "../../../redux/store";
 
 
 

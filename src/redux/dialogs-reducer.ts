@@ -1,13 +1,10 @@
-import {ActionsTypes, DialogsPageType, PostType, RootStateType} from "./state";
+import {ActionsTypes, DialogsPageType, PostType, RootStateType} from "./store";
 import {v1} from "uuid";
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
-const SEND_MESSAGE = "SEND_MESSAGE"
-    //спросить можно ли стейту давать тип dialogsPageType???
+const SEND_MESSAGE = "SEND_MESSAGE";
 
-
-
-const initialState = {
+let initialState = {
     dialogs: [
         {id: v1(), name: 'Dimych'},
         {id: v1(), name: 'Andrew'},

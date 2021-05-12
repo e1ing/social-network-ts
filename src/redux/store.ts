@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import dialogsReduser from "./dialogs-reducer";
 import profileReduser, {addPostAC, updateNewPostTextAC} from "./profile-reducer";
-import sidebarReduser from "./sidebar-reducer";
+
 
 export type PostType = {
     id: string
