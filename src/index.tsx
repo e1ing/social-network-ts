@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import store, {RootStateType, StoreType} from "./redux/store";
+import store, {RootStateType, StoreType} from "./redux/redux-store";
 import {BrowserRouter} from "react-router-dom";
 
 

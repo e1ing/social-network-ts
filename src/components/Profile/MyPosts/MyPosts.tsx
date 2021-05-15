@@ -21,18 +21,14 @@ const MyPosts: React.FC<PropsType> = ({
 
     // let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
-        dispatch(addPostAC());
+    let onAddPost = () => {
+        addPost();
+        //dispatch(addPostAC());
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // if (newPostElement.current){
-        //     let text = newPostElement.current.value;
-        //     let action = updateNewPostTextAC(text);
-        //     dispatch(action)
-        // }
-        let action = updateNewPostTextAC(e.currentTarget.value);
-        dispatch(action)
+        let text = newPostElement.current.value;
+        updateNewPostTextAC(text);
     }
 
 
@@ -51,7 +47,7 @@ const MyPosts: React.FC<PropsType> = ({
                         value={newPostText}
                     />
                 </div>
-                <button onClick={addPost}> Add post</button>
+                <button onClick={onAddPost}> Add post</button>
             </div>
             <div className={classes.posts}>
                 {postsElements}

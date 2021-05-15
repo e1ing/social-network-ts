@@ -1,8 +1,8 @@
-import {ActionsTypes, DialogsPageType, PostType, RootStateType} from "./store";
+import {ActionsTypes, DialogsPageType} from "./store";
 import {v1} from "uuid";
 
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
-const SEND_MESSAGE = "SEND_MESSAGE";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+const SEND_MESSAGE = "SEND-MESSAGE";
 
 let initialState = {
     dialogs: [
@@ -29,7 +29,8 @@ const dialogsReduser = (state: DialogsPageType = initialState, action: ActionsTy
             state.newMessageBody = action.body;
             return state;
         case SEND_MESSAGE:
-            let body = state.newMessageBody = "";
+            let body = state.newMessageBody;
+            state.newMessageBody = "";
             state.messages.push({id: v1(), message: body});
             return state;
         default:

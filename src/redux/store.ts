@@ -82,7 +82,7 @@ let store: StoreType = {
             ],
             newMessageBody: ""
         },
-        // sidebar: {}
+         sidebar: {}
     },
     _callSubscriber() {
         console.log('State changed');
