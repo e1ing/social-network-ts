@@ -8,11 +8,11 @@ import store, {ActionsTypes, StoreType} from "./redux/store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type PropsType = {
-    store: StoreType
-    dispatch: (action: ActionsTypes) => void
+    // store: StoreType
+    // dispatch: (action: ActionsTypes) => void
 }
 
-const App: React.FC<PropsType > = ({store, dispatch}) => {
+const App: React.FC<PropsType > = () => {
 
 
     return (
@@ -22,10 +22,9 @@ const App: React.FC<PropsType > = ({store, dispatch}) => {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() =>
-                        <DialogsContainer store={store}/>}/>
+                        <DialogsContainer/>}/>
                     <Route path='/profile' render={() =>
-                        <Profile store={store}
-                                 />}/>
+                        <Profile/>}/>
                 </div>
             </div>
         </BrowserRouter>)

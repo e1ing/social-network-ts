@@ -2,16 +2,20 @@ import React, {ChangeEvent} from 'react'
 import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {DialogsPageType, StoreType} from '../../redux/store';
-import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
+import {DialogsPageType} from '../../redux/store';
 type PropsType = {
+    updateNewMessageBody: (body: string) => void
+    sendMessage: () => void
     dialogsPage: DialogsPageType
-    dispatch: (action: any) => void
 }
 
-const Dialogs: React.FC<PropsType> = ({dialogsPage}) => {
+const Dialogs: React.FC<PropsType> = ({
+                                          updateNewMessageBody,
+                                          sendMessage,
+                                          dialogsPage
+                                      }) => {
 
-    let state=dialogsPage;
+    // let state_=state.dialogsPage;
 
     let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElements = dialogsPage.messages.map(m => <Message message={m.message} id={m.id}/>)
@@ -21,7 +25,7 @@ const Dialogs: React.FC<PropsType> = ({dialogsPage}) => {
         let mess = newMessageElement.current?.value;
         alert(mess);
     }
-    let newMessageBody = dialogsPage.newMessageBody;
+    let newMessageBody = dialogsPage .newMessageBody;
 
     let onSendMessageClick = () => {
         sendMessage();

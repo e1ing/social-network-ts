@@ -1,40 +1,36 @@
 import React, {ChangeEvent} from 'react';
 import classes from './MyPosts.module.css';
 import Post from "./Posts/Post";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
-import {ActionsTypes, PostType} from "../../../redux/store";
+import {PostType} from "../../../redux/store";
 
 type PropsType = {
     posts: Array<PostType>
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
+    addPost: () => void
+    updateNewPostText: (text:string) => void
 }
 
 const MyPosts: React.FC<PropsType> = ({
                                           posts,
                                           newPostText,
-                                          dispatch
+                                          addPost,
+                                          updateNewPostText
                                       }) => {
 
     let postsElements = posts.map(p =>
         <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
-    // let newPostElement = React.createRef<HTMLTextAreaElement>();
+let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let onAddPost = () => {
         addPost();
-        //dispatch(addPostAC());
+
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = newPostElement.current.value;
-        updateNewPostTextAC(text);
+        updateNewPostText(text);
     }
-
-
-    /* const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-         updateNewPostText(e.currentTarget.value);
-     }*/
 
     return (
         <div className={classes.postsBlock}>
@@ -42,7 +38,6 @@ const MyPosts: React.FC<PropsType> = ({
             <div>
                 <div>
                     <textarea
-                        // ref={newPostText}
                         onChange={onPostChange}
                         value={newPostText}
                     />

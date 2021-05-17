@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsTypes, PostType, ProfilePageType, RootStateType} from "./store";
+import {ActionsTypes, PostType} from "./store";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -13,7 +13,7 @@ let initialState = {
         ]
     };
 
- const profileReduser = (state=initialState, action: ActionsTypes) => {
+ const profileReducer = (state=initialState, action: ActionsTypes) => {
 
     switch (action.type) {
         case ADD_POST:
@@ -41,4 +41,4 @@ export const updateNewPostTextAC = (text: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     newText: text
 }) as const
-export default profileReduser;
+export default profileReducer;

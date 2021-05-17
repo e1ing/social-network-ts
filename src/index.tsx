@@ -4,22 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import store, {RootStateType, StoreType} from "./redux/redux-store";
+import store, {RootReduxStateType} from "./redux/redux-store";
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "./StoreContext"
 
 
- let rerenderEntireTree = (state:  RootStateType ) => {
+let rerenderEntireTree = (state: RootReduxStateType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state ={state} dispatch = {store.dispatch.bind(store)}/>
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </BrowserRouter>,
 
-       /* <React.StrictMode>
-            <App profilePage={store.getState().profilePage}
-                 dialogsPage={store.getState().dialogsPage}
-                 sidebar={store.getState().sidebar}
-            />
-        </React.StrictMode>,*/
+        /* <React.StrictMode>
+             <App profilePage={store.getState().profilePage}
+                  dialogsPage={store.getState().dialogsPage}
+                  sidebar={store.getState().sidebar}
+             />
+         </React.StrictMode>,*/
 
 
         document.getElementById('root')
@@ -29,7 +32,7 @@ import {BrowserRouter} from "react-router-dom";
 
 rerenderEntireTree(store.getState());
 
-store.subscribe (() => {
+store.subscribe(() => {
     let state = store.getState()
     rerenderEntireTree(state)
 });

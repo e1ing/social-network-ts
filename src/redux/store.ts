@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import dialogsReduser from "./dialogs-reducer";
-import profileReduser, {addPostAC, updateNewPostTextAC} from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer, {addPostAC, updateNewPostTextAC} from "./profile-reducer";
 
 
 export type PostType = {
@@ -82,23 +82,23 @@ let store: StoreType = {
             ],
             newMessageBody: ""
         },
-         sidebar: {}
+         // sidebar: {}
     },
     _callSubscriber() {
         console.log('State changed');
     },
 
     getState() {
-        return this._state; //спросить почему функция с ()
+        return this._state;
     },
     subscribe(observer) {
         this._callSubscriber = observer; //наблюдатель
     },
 
     dispatch(action: ActionsTypes) {
-        this._state.profilePage = profileReduser(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action)
-        // this._state.sidebar = sidebarReduser(this._state.sidebar, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        // this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
    this._callSubscriber(this._state);
     }
