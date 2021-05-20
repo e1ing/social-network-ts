@@ -29,4 +29,7 @@ const MyPostsContainer = () => {
     </StoreContext.Consumer>
     )
 }
+
+
+
 export default MyPostsContainer;

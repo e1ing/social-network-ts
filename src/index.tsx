@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import store, {RootReduxStateType} from "./redux/redux-store";
 import {BrowserRouter} from "react-router-dom";
-import {Provider} from "./StoreContext"
+import {Provider} from "react-redux"
 
 
 let rerenderEntireTree = (state: RootReduxStateType) => {
