@@ -2,8 +2,8 @@ import React from 'react'
 import classes from './../Dialogs.module.css'
 import {NavLink} from 'react-router-dom';
 import Message from "../Message/Message";
-import {DialogsPageType, DialogType} from "../../../redux/store";
-
+import {DialogType} from "../../../redux/dialogs-reducer";
+import {DialogsPageType} from "../../../redux/store";
 
 
 const DialogItem:React.FC<DialogType> = ({id, name}) => {

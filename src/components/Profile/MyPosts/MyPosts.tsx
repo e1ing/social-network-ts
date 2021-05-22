@@ -1,16 +1,15 @@
 import React, {ChangeEvent} from 'react';
 import classes from './MyPosts.module.css';
 import Post from "./Posts/Post";
-import {MyPostsPropsType} from "./MyPostsContainer";
 import {InitialStateType} from "../../../redux/profile-reducer";
 
-type PropsType = {
+type MyPostsPropsType = {
     profilePage: InitialStateType
     addPost: () => void
     updateNewPostText: (text: string) => void
 }
 
-const MyPosts: React.FC<PropsType> = (props) => {
+const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     let postsElements = props.profilePage.posts.map(p =>
         <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)

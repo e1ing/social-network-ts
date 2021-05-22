@@ -7,7 +7,7 @@ import sidebarReduser from "./sidebar-reducer";
 let rootReducer = combineReducers({
     profilePage: profileReduser,
     dialogsPage: dialogsReduser,
-    sidebarPage: sidebarReduser
+    /*sidebarPage: sidebarReduser*/
 });
 
 export type AppStateType = ReturnType<typeof rootReducer> //state of application
