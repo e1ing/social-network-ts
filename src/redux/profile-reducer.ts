@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {ActionsTypes} from "./store";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -20,6 +19,7 @@ let initialState = {
 };
 
 export type InitialStateType = typeof initialState
+type ActionsTypes = ReturnType<typeof updateNewPostTextAC> | ReturnType<typeof addPostAC>
 
 const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     let stateCopy = {...state, posts: [...state.posts]}
@@ -30,8 +30,9 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
                 message: state.newPostText,
                 likesCount: 0
             };
+            state.newPostText = "";
             return {...state, posts: [...state.posts, newPost]}
-            state.newPostText = '';
+
         case UPDATE_NEW_POST_TEXT:
             return {
                 ...state, newPostText: action.newText
