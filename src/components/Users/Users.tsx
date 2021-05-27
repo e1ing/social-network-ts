@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './users.module.css';
 import {InitialStateType, UserType} from "../../redux/users-reducer";
 import {v1} from "uuid";
+import axios from 'axios';
+import userPhoto from '../../asserts/images/Meelo.png';
 
 
 export type UserPropsType = {
@@ -12,53 +14,32 @@ export type UserPropsType = {
 }
 
 let Users/*: React.FC<UsersPropsType>*/ = (props:UserPropsType) => {
-    if(props.usersPage.users.length === 0)
-        props.setUsers([
-        {
-            id: v1(),
-            photoUrl: "https://decider.com/wp-content/uploads/2020/07/the-legend-of-korra-2.jpg?quality=90&strip=all&w=1284&h=856&crop=1",
-            followed: false,
-            fullName: "Dmitry",
-            status: "I'm a boss",
-            location: {city: "Minsk", country: "Belarus"}
-        },
-        {
-            id: v1(),
-            photoUrl: "https://decider.com/wp-content/uploads/2020/07/the-legend-of-korra-2.jpg?quality=90&strip=all&w=1284&h=856&crop=1",
-            followed: true,
-            fullName: "Sasha",
-            status: "I like vareniki",
-            location: {city: "Kiev", country: "Ukraine"}
-        },
-        {
-            id: v1(),
-            photoUrl: "https://decider.com/wp-content/uploads/2020/07/the-legend-of-korra-2.jpg?quality=90&strip=all&w=1284&h=856&crop=1",
-            followed: false,
-            fullName: "Andrew",
-            status: "Just a person",
-            location: {city: "Simferopol", country: "Crimea"}
-        }
-    ]);
+    if(props.usersPage.users.length === 0) {
 
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
+            props.setUsers(response.data.items);
+        });
+
+    }
     return <div>
         {
             props.usersPage.users.map(u => <div key={u.id}>
 <span>
     <div>
-        <img src={u.photoUrl} className={styles.usersPhoto}/>
+        <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.usersPhoto}/>
     </div>
     <div>
         {
             u.followed
                 ?
                 <button onClick={() => {
-                    props.follow(u.id)
+                    props.unfollow(u.id)
                 }}>
                     unfollow
                 </button>
                 :
                 <button onClick={() => {
-                    props.unfollow(u.id)
+                    props.follow(u.id)
                 }}>
                     follow
                 </button>
@@ -68,12 +49,12 @@ let Users/*: React.FC<UsersPropsType>*/ = (props:UserPropsType) => {
 </span>
                 <span>
     <span>
-        <div>{u.fullName}</div>
+        <div>{u.name}</div>
         <div>{u.status}</div>
     </span>
     <span>
-        <div>{u.location.country}</div>
-        <div>{u.location.city}</div>
+        <div>{"u.location.country"}</div>
+        <div>{"u.location.city"}</div>
 
     </span>
 </span>

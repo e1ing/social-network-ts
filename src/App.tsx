@@ -12,7 +12,7 @@ type PropsType = {
     // dispatch: (action: ActionsTypes) => void
 }
 
-const App: React.FC<PropsType > = () => {
+const App: React.FC<PropsType> = () => {
 
 
     return (
