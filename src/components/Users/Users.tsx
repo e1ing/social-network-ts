@@ -2,13 +2,20 @@ import React from 'react';
 import userPhoto from "../../asserts/images/Meelo.png";
 import styles from "./users.module.css";
 import axios from "axios";
-import {render} from "react-dom";
+import {InitialStateType, UserType} from "../../redux/users-reducer";
 
-class Users extends React.Component {
-    constructor(props){
-        super(props);
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items);
+type UsersPropsType = {
+    usersPage: InitialStateType
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
+    setUsers: (users: Array<UserType>) => void
+}
+
+class Users extends React.Component <UsersPropsType> {
+
+    componentDidMount() {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.setUsers(response.data.items);
         });
     }
 
