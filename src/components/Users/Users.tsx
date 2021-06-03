@@ -9,13 +9,24 @@ type UsersPropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     setUsers: (users: Array<UserType>) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
 }
+
 
 class Users extends React.Component <UsersPropsType> {
 
     componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`,
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users`,
+            {
+                params: {
+                    page: this.props.usersPage.currentPage,
+                    count: this.props.usersPage.pageSize
+                }
+            }).then(response => {
             this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount);
         });
     }
 
@@ -28,8 +39,33 @@ class Users extends React.Component <UsersPropsType> {
         }
     }
 
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get("https://social-network.samuraijs.com/api/1.0/users",
+            {params: {page: pageNumber}
+            }
+            ).then(response => {
+            this.props.setUsers(response.data.items);
+        });
+    }
+
     render() {
+
+        let pagesCount = Math.ceil(this.props.usersPage.totalUsersCount / this.props.usersPage.pageSize);
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
         return <div>
+            <div>
+                {
+                    pages.map(p => {
+                        return <span className={this.props.usersPage.currentPage === p ? styles.selectedPage: ""}
+                                     onClick={(e) => {this.onPageChanged(p)}}>{p}</span>
+                    })
+                }
+            </div>
+
             <button onClick={this.getUsers}>Get users</button>
             {
                 this.props.usersPage.users.map(u => <div key={u.id}>
@@ -44,13 +80,13 @@ class Users extends React.Component <UsersPropsType> {
                 <button onClick={() => {
                     this.props.unfollow(u.id)
                 }}>
-                    unfollow
+                    Unfollow
                 </button>
                 :
                 <button onClick={() => {
                     this.props.follow(u.id)
                 }}>
-                    follow
+                    Follow
                 </button>
         }
 
