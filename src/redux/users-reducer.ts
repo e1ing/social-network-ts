@@ -3,6 +3,7 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
 
 export type PhotosType = {
     large: string | null
@@ -26,14 +27,17 @@ const initialState = {
     pageSize: 5 as number,
     totalUsersCount: 0 as number,
     currentPage: 1 as number,
+    isFetching: true,
 };
 
 export type InitialStateType = typeof initialState
-type ActionsTypes = ReturnType<typeof followAC> |
+export type ActionsTypes = ReturnType<typeof followAC> |
     ReturnType<typeof unfollowAC> |
     ReturnType<typeof setUsersAC> |
     ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setUsersTotalCountAC>
+    ReturnType<typeof setUsersTotalCountAC>|
+    ReturnType<typeof toggleIsFetchingAC>
+
 
 
 const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -67,6 +71,9 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionsTyp
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.count}
 
+        case TOGGLE_IS_FETCHING:
+            return {...state, isFetching: action.isFetching}
+
         default:
             return state;
     }
@@ -76,5 +83,7 @@ export const unfollowAC = (userId: string) => ({type: UNFOLLOW, userId: userId})
 export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users: users}) as const
 export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
 export const setUsersTotalCountAC = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount}) as const
+export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
+
 
 export default usersReducer;
