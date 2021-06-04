@@ -9,6 +9,35 @@ export type PostType = {
     message: string
     likesCount: number
 }
+
+type ProfileContactsType = {
+    facebook: string,
+    website: string,
+    vk: string,
+    twitter: string,
+    instagram: string,
+    youtube: string,
+    github: string,
+    mainLink: string,
+}
+
+type ProfilePhotosType = {
+    small: string,
+    large: string,
+}
+
+export type ProfileType = {
+    aboutMe: string,
+    contacts: ProfileContactsType,
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: ProfilePhotosType,
+}
+
+
+
 let initialState = {
     newPostText: "",
     posts: [
@@ -16,7 +45,7 @@ let initialState = {
         {id: v1(), message: "It's my first post", likesCount: 7},
         {id: v1(), message: "It's my second post", likesCount: 5}
     ] as Array<PostType>,
-    profile: null,
+    profile: Array<ProfileType>,
 };
 
 export type InitialStateType = typeof initialState

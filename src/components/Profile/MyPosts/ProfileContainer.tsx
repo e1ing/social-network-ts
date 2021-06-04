@@ -2,12 +2,12 @@ import React from 'react';
 import Profile from "../Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {InitialStateType, setUserProfile} from "../../../redux/profile-reducer";
+import {InitialStateType, ProfileType, setUserProfile} from "../../../redux/profile-reducer";
 import {AppStateType} from "../../../redux/redux-store";
 
 type ProfileComponentType = {
     setUserProfile: (profile: any) => void
-    profile: null;
+    profile: ProfileType;
 }
 
 export class ProfileContainer extends React.Component<ProfileComponentType> {
@@ -24,7 +24,7 @@ export class ProfileContainer extends React.Component<ProfileComponentType> {
 
     render() {
         return (
-            <Profile {...this.props} />
+            <Profile {...this.props.profile} />
         )
     }
 }
