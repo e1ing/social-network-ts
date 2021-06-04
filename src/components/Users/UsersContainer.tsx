@@ -80,7 +80,7 @@ class UsersContainer extends React.Component <UsersContainerType> {
 export type MapStateToPropsType = {
     usersPage: InitialStateType,
 }
-export type MapDispatchToPropsType = {
+/*export type MapDispatchToPropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     setUsers: (users: Array<UserType>) => void
@@ -88,7 +88,7 @@ export type MapDispatchToPropsType = {
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
 }
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
+export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType*/
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
