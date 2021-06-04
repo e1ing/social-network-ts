@@ -8,13 +8,13 @@ type UsersPropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     onPageChanged: (pageNumber: number) => void
-    /*setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (currentPage: number) => void
+    getUsers: () => void
+    /*setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void*/
   }
 
 let Users: React.FC<UsersPropsType> = props => {
-    const {usersPage, follow, unfollow, onPageChanged} = props;
+    const {usersPage, follow, unfollow, onPageChanged, getUsers} = props;
 
     let pagesCount = Math.ceil(usersPage.totalUsersCount / usersPage.pageSize);
     let pages = [];

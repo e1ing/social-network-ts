@@ -13,6 +13,7 @@ import {Dispatch} from 'redux';
 import axios from 'axios';
 import Users from './Users';
 import preloader from './../../asserts/images/loader.gif'
+import Preloader from "../common/preloader/Preloader";
 
 
 type UsersContainerType = {
@@ -28,6 +29,10 @@ type UsersContainerType = {
 class UsersContainer extends React.Component <UsersContainerType> {
 
     componentDidMount() {
+        this.getUsers()
+    }
+
+    getUsers = () => {
         this.props.toggleIsFetching(true);
         // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`,
         axios.get(`https://social-network.samuraijs.com/api/1.0/users`,
@@ -41,15 +46,6 @@ class UsersContainer extends React.Component <UsersContainerType> {
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount);
         });
-    }
-
-    getUsers = () => {
-        if (this.props.usersPage.users.length === 0
-        ) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items);
-            });
-        }
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -67,14 +63,16 @@ class UsersContainer extends React.Component <UsersContainerType> {
 
     render() {
         return <>
-            {this.props.isFetching  ? <Preloader/> : null}
+
+            {this.props.usersPage.isFetching  ? <Preloader/> : null}
 
             <Users
-            totalUsersCount={this.props.totalUsersCount}
-            props.pageSize={this.props.pageSize}
-            currrentPage={this.props.currentPage}
-            onPageChanged={this.onPageChanged}
-            users={this.props.users}/>
+                usersPage={this.props.usersPage}
+                onPageChanged={this.onPageChanged}
+                unfollow={(id: string) => console.log(id)}
+                follow={(id: string) => console.log(id)}
+                getUsers={this.getUsers}
+            />
         </>
 
     }
