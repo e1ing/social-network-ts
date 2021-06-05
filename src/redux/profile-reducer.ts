@@ -27,12 +27,12 @@ type ProfilePhotosType = {
 }
 
 export type ProfileType = {
+    userId: number,
     aboutMe: string,
     contacts: ProfileContactsType,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
-    userId: number,
     photos: ProfilePhotosType,
 }
 
@@ -45,7 +45,7 @@ let initialState = {
         {id: v1(), message: "It's my first post", likesCount: 7},
         {id: v1(), message: "It's my second post", likesCount: 5}
     ] as Array<PostType>,
-    profile: Array<ProfileType>,
+    profile: null as null | ProfileType,
 };
 
 export type InitialStateType = typeof initialState

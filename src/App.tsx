@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import {ProfileContainer} from "./components/Profile/MyPosts/ProfileContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 type PropsType = {
@@ -24,7 +24,7 @@ const App: React.FC<PropsType> = () => {
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() =>
                         <DialogsContainer/>}/>
-                    <Route path='/profile' render={() =>
+                    <Route path='/profile/:userId?' render={() =>
                         <ProfileContainer/>}/>
                     <Route path='/users' render={() =>
                         <UsersContainer/>}/>

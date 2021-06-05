@@ -4,7 +4,7 @@ import Preloader from "../../../common/preloader/Preloader";
 import {ProfileType} from "../../../../redux/profile-reducer";
 
 type ProfileInfoPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null,
 }
 
 const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
