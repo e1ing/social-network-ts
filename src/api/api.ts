@@ -9,7 +9,7 @@ const instance = axios.create({
 }) //object-instance
 
 export const usersAPI = {
-    getUsers(currentPage: 1, pageSize: 10) {
+    getUsers(currentPage = 1, pageSize = 10) {
         return instance.get('users',
             {
                 params: {
@@ -23,7 +23,7 @@ export const usersAPI = {
 }
 
 export const followAPI = {
-   getUsers(currentPage: 1, pageSize: 10){
+   getUsers(currentPage = 1, pageSize = 10){
         return axios.get('follow',
             {
                 params: {

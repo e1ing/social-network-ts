@@ -10,11 +10,13 @@ type MapStateToPropsType = {
     login: string
 }
 
-type HeaderComponentsType = {
+type MapDispatchToProps = {
     setAuthUserData: (data: InitialStateType) => void
 }
 
-class HeaderContainer extends React.Component<HeaderComponentsType> {
+type PropsType = MapStateToPropsType & MapDispatchToProps
+
+class HeaderContainer extends React.Component<PropsType> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
             withCredentials: true //object with request settings, credentials=true means
@@ -33,8 +35,10 @@ class HeaderContainer extends React.Component<HeaderComponentsType> {
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    isAuth: state.auth.isAuth
-    login: state.auth.login
+    return {
+        isAuth: state.auth.isAuth,
+        login: state.auth.login,
+    }
 }
 
 export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer);
