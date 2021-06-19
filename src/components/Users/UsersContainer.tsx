@@ -35,6 +35,7 @@ class UsersContainer extends React.Component <UsersContainerType> {
         // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`,
         axios.get(`https://social-network.samuraijs.com/api/1.0/users`,
             {
+                withCredentials: true,
                 params: {
                     page: this.props.usersPage.currentPage,
                     count: this.props.usersPage.pageSize

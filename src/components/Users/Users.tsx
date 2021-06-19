@@ -3,6 +3,7 @@ import styles from "./users.module.css";
 import userPhoto from "../../asserts/images/Meelo.png";
 import {InitialStateType, UserType} from "../../redux/users-reducer";
 import { NavLink } from 'react-router-dom';
+import axios from "axios";
 
 type UsersPropsType = {
     usersPage: InitialStateType
@@ -49,16 +50,34 @@ let Users: React.FC<UsersPropsType> = props => {
             u.followed
                 ?
                 <button onClick={() => {
+                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/$(u.id)`, {
+                        withCredentials:true,
+                        headers: {
+                            "API-KEY": "2e663c7e-754e-4005-8ebe-08de0775050a"
+                        }
+                    })
+                        .then(response => {
+                            if(response.data.resultCode==0){
+                                follow(u.id)
+                            }
+                        });
                     unfollow(u.id)
-                }}>
-                    Unfollow
-                </button>
+
+                }}>Unfollow</button>
                 :
                 <button onClick={() => {
-                    follow(u.id)
-                }}>
-                    Follow
-                </button>
+                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/$(u.id)`, {},{
+                    withCredentials:true,
+                        headers: {
+                            "API-KEY": "2e663c7e-754e-4005-8ebe-08de0775050a"
+                        }
+                })
+                        .then(response => {
+                            if(response.data.resultCode==0){
+                                follow(u.id)
+                            }
+                        });
+                }}>Follow</button>
         }
 
         </div>
