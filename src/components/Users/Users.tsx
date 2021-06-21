@@ -4,11 +4,12 @@ import userPhoto from "../../asserts/images/Meelo.png";
 import {InitialStateType, toggleFollowingProgress} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
 import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     usersPage: InitialStateType
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
     getUsers: any
     followingInProgress: any
@@ -51,36 +52,12 @@ let Users: React.FC<UsersPropsType> = props => {
             u.followed
                 ?
                 <button disabled={followingInProgress.some((id: any) => id === u.id)} onClick={() => {
-                    toggleFollowingProgress(true,  +u.id);
-                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/$(u.id)`, {
-                        withCredentials: true,
-                        headers: {
-                            "API-KEY": "2e663c7e-754e-4005-8ebe-08de0775050a"
-                        }
-                    })
-                        .then(response => {
-                            if (response.data.resultCode == 0) {
-                                follow(u.id)
-                            }
-                        });
-                    unfollow(u.id)
-                    toggleFollowingProgress(false,  +u.id)
+                    unfollow(+u.id);
+                    toggleFollowingProgress(false, +u.id)
                 }}>Unfollow</button>
                 :
                 <button disabled={followingInProgress.some((id: any) => id === u.id)} onClick={() => {
-                    toggleFollowingProgress(true,  +u.id)
-                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/$(u.id)`, {}, {
-                        withCredentials: true,
-                        headers: {
-                            "API-KEY": "2e663c7e-754e-4005-8ebe-08de0775050a"
-                        }
-                    })
-                        .then(response => {
-                            if (response.data.resultCode == 0) {
-                                follow(u.id)
-                            }
-                            toggleFollowingProgress(false, +u.id)
-                        });
+
                 }}>Follow</button>
         }
 

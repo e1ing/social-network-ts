@@ -19,12 +19,42 @@ export const usersAPI = {
             }).then(response => {
             return response.data;
         });
+    },
+    follow(userId: number){
+        return instance.post('follow/${u.id}')
+    },
+    unfollow(userId: number){
+        return instance.delete('follow/${u.id}')
+    },
+    getProfile (userId: number) {
+        return instance.get("profile/" +userId);
     }
 }
+
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
+    }
+}
+
 
 export const followAPI = {
    getUsers(currentPage = 1, pageSize = 10){
         return axios.get('follow',
+            {
+                params: {
+                    page: currentPage,
+                    count: pageSize
+                }
+            }).then(response => {
+            return response.data;
+        });
+    }
+}
+
+export const unfollowAPI = {
+    getUsers(currentPage = 1, pageSize = 10){
+        return axios.delete('follow',
             {
                 params: {
                     page: currentPage,
