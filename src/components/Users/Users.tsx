@@ -1,10 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styles from "./users.module.css";
 import userPhoto from "../../asserts/images/Meelo.png";
 import {InitialStateType, toggleFollowingProgress} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
-import axios from "axios";
-import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     usersPage: InitialStateType
@@ -13,11 +11,9 @@ type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
     getUsers: any
     followingInProgress: any
-    /*setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void*/
 }
 
-let Users: React.FC<UsersPropsType> = props => {
+let Users: FC<UsersPropsType> = props => {
     const {usersPage, follow, unfollow, onPageChanged, getUsers, followingInProgress} = props;
 
     let pagesCount = Math.ceil(usersPage.totalUsersCount / usersPage.pageSize);
@@ -51,17 +47,14 @@ let Users: React.FC<UsersPropsType> = props => {
         {
             u.followed
                 ?
-                <button disabled={followingInProgress.some((id: any) => id === u.id)} onClick={() => {
-                    unfollow(+u.id);
-                    toggleFollowingProgress(false, +u.id)
-                }}>Unfollow</button>
+                <button disabled={followingInProgress.some((id: number) => id === u.id)}
+                        onClick={() => unfollow(u.id)}>Unfollow </button>
                 :
-                <button disabled={followingInProgress.some((id: any) => id === u.id)} onClick={() => {
-
-                }}>Follow</button>
+                <button disabled={followingInProgress.some((id: number) => id === u.id)}
+                        onClick={() => follow(u.id)}> Follow </button>
         }
+    </div>
 
-        </div>
 </span>
                 <span>
     <span>
@@ -71,7 +64,6 @@ let Users: React.FC<UsersPropsType> = props => {
     <span>
         <div>{"u.location.country"}</div>
         <div>{"u.location.city"}</div>
-
     </span>
 </span>
             </div>)

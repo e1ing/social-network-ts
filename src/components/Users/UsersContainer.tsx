@@ -1,34 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {
-    follow,
-    InitialStateType,
-    setCurrentPage,
-    unfollow,
-    toggleFollowingProgress, getUsers,
-} from '../../redux/users-reducer';
+import {follow, getUsers, InitialStateType, setCurrentPage, unfollow,} from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import Users from './Users';
 import Preloader from "../common/preloader/Preloader";
 import {usersAPI} from '../../api/api';
 
-
-type MapStateToPropsType = {
-    usersPage: InitialStateType
-    followingInProgress: Array<number>
-    currentPage: number
-    pageSize: number
-    totalUsersCount: number
-}
-
-export type MapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-}
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -59,6 +36,19 @@ class UsersContainer extends Component <UsersPropsType> {
 
     }
 }
+export type MapDispatchToPropsType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    setCurrentPage: (currentPage: number) => void
+}
+type MapStateToPropsType = {
+    usersPage: InitialStateType
+    currentPage: number
+    pageSize: number
+    totalUsersCount: number
+    followingInProgress: Array<number>
+}
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -71,7 +61,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-export default connect(mapStateToProps, {
-    follow, unfollow, setCurrentPage,
-    toggleFollowingProgress, getUsers
+export default connect(
+    mapStateToProps, {
+    follow, unfollow, setCurrentPage, getUsers
 })(UsersContainer);

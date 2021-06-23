@@ -1,12 +1,11 @@
 import {FC} from 'react';
 import classes from './Header.module.css';
 import { NavLink } from 'react-router-dom';
-import {InitialStateType} from "../../redux/auth-reducer";
 
 type HeaderPropsType ={
     isAuth: boolean
     login: string
-    setAuthUserData: (data: InitialStateType) => void
+    getAuthUserData: () => void
 }
 const Header: FC<HeaderPropsType> = ({isAuth, login}) => {
     return <header className = {classes.header}>

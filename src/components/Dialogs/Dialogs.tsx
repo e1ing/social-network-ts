@@ -3,18 +3,21 @@ import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {InitialStateType} from "../../redux/dialogs-reducer";
+import { Redirect } from 'react-router-dom';
 
 type DialogsPropsType = {
-    updateNewMessageBody: (body:string) => void
+    updateNewMessageBody: (body: string) => void
     sendMessage: () => void
     dialogsPage: InitialStateType
+    isAuth: boolean
 }
 
 const Dialogs: React.FC<DialogsPropsType> = ({
-                                          updateNewMessageBody,
-                                          sendMessage,
-                                          dialogsPage
-                                      }) => {
+                                                 updateNewMessageBody,
+                                                 sendMessage,
+                                                 dialogsPage,
+                                                 isAuth,
+                                             }) => {
 
     // let state_=state.dialogsPage;
 
@@ -31,11 +34,12 @@ const Dialogs: React.FC<DialogsPropsType> = ({
     let onSendMessageClick = () => {
         sendMessage();
     }
-    let onNewMessageChange =  (e: ChangeEvent<HTMLTextAreaElement>) => {
+    let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value;
         updateNewMessageBody(body)
     }
 
+    if (!isAuth) return <Redirect to={'/login'}/>
     return (
         <div className={classes.dialogs}>
 
@@ -45,25 +49,25 @@ const Dialogs: React.FC<DialogsPropsType> = ({
 
             <div className={classes.messages}>
                 <div>{messagesElements}</div>
-                        <div>
-                            <div>
+                <div>
+                    <div>
                                 <textarea value={newMessageBody}
                                           onChange={onNewMessageChange}
                                           placeholder="Enter message">
                             </textarea>
-                            </div>
-
-                            <div>
-                                <button onClick={onSendMessageClick}> Send</button>
-                            </div>
-                        </div>
-
                     </div>
-                    <button>Send</button>
-                    <textarea ref={newMessageElement}></textarea>
 
+                    <div>
+                        <button onClick={onSendMessageClick}> Send</button>
+                    </div>
                 </div>
-                )
-                }
 
-                export default Dialogs;
+            </div>
+            <button>Send</button>
+            <textarea ref={newMessageElement}></textarea>
+
+        </div>
+    )
+}
+
+export default Dialogs;

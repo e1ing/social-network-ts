@@ -20,14 +20,14 @@ export const usersAPI = {
             return response.data;
         });
     },
-    follow(userId: number){
+    follow(userId: number) {
         return instance.post('follow/${u.id}')
     },
-    unfollow(userId: number){
+    unfollow(userId: number) {
         return instance.delete('follow/${u.id}')
     },
-    getProfile (userId: number) {
-        return instance.get("profile/" +userId);
+    getProfile(userId: number) {
+        return instance.get("profile/" + userId);
     }
 }
 
@@ -39,7 +39,7 @@ export const authAPI = {
 
 
 export const followAPI = {
-   getUsers(currentPage = 1, pageSize = 10){
+    getUsers(currentPage = 1, pageSize = 10) {
         return axios.get('follow',
             {
                 params: {
@@ -53,7 +53,7 @@ export const followAPI = {
 }
 
 export const unfollowAPI = {
-    getUsers(currentPage = 1, pageSize = 10){
+    getUsers(currentPage = 1, pageSize = 10) {
         return axios.delete('follow',
             {
                 params: {
