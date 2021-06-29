@@ -32,7 +32,15 @@ type ProfileStatusPropsType = {
          });
      }
 
-    render() {
+     componentDidUpdate(prevProps, prevState) {
+      if(prevProps.status!==this.props.stats)
+       this.setState({status: this.props.status})
+        let a = this.state
+        let b = this.props
+        console.log("")
+     }
+
+     render() {
         return (
             <div>
                 {!this.state.editMode &&
