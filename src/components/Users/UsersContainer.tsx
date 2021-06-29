@@ -63,15 +63,14 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export default withAuthRedirect(connect(mapStateToProps, {
+/*export default withAuthRedirect(connect(mapStateToProps, {
     follow, unfollow, setCurrentPage, getUsers
-})(UsersContainer))
+})(UsersContainer))*/
 
-/*
-export default compose<ComponentType>(withAuthRedirect,
+export default compose<ComponentType>(
+withAuthRedirect,
     connect(mapStateToProps, {
         follow, unfollow, setCurrentPage, getUsers
-    })(UsersContainer)
-)(UsersContainer)
-*/
+    }))(UsersContainer)
+
 
