@@ -33,7 +33,7 @@ class ProfileStatus extends Component <ProfileStatusPropsType> {
         });
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>) {
     if (prevProps.status !== this.props.status){
         this.setState({status:this.props.status})
         let a = this.state
@@ -45,7 +45,7 @@ class ProfileStatus extends Component <ProfileStatusPropsType> {
             <div>
                 {!this.state.editMode &&
                 <div>
-                    <span onDoubleClick={this.activateEditMode}>{!this.props.status || "---"}</span>
+                    <span onDoubleClick={this.activateEditMode}>{this.props.status === '' ? 'status' : this.props.status}</span>
                 </div>
                 }
                 {this.state.editMode &&
