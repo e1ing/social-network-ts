@@ -5,6 +5,8 @@ import Message from "./Message/Message";
 import {InitialStateType} from "../../redux/dialogs-reducer";
 import {Redirect} from 'react-router-dom';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Textarea} from "../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
 
 type DialogsPropsType = {
     sendMessage: (body: string) => void
@@ -28,7 +30,7 @@ const Dialogs: React.FC<DialogsPropsType> = ({
         sendMessage(values.newMessageBody)
     }
 
-    if (!isAuth) return <Redirect to={'/login'}/>
+    if (isAuth===false) return <Redirect to={'/login'}/>
     return (
         <div className={classes.dialogs}>
 
@@ -51,11 +53,13 @@ type FormMessageType = {
     enterMessage: string
 }
 
+
+const mathLength10 = maxLengthCreator(10);
 const AddMessageForm: FC<InjectedFormProps<FormMessageType>> = ({handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <Field component={"textarea"} name={"newMessageBody"} placeholder={"enterMessage"}/>
+                <Field component={Textarea} validate={[required, mathLength10]} name={"newMessageBody"} placeholder={"enterMessage"}/>
             </div>
             <div>
                 <button> Send</button>

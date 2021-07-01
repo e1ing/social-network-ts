@@ -3,18 +3,20 @@ import classes from './MyPosts.module.css';
 import Post from "./Posts/Post";
 import {InitialStateType} from "../../../redux/profile-reducer";
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 type MyPostsPropsType = {
     profilePage: InitialStateType
     addPost: (text: string) => void
 }
 
+const mathLength10 = maxLengthCreator(10);
+
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     let postsElements = props.profilePage.posts.map(p =>
         <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
-
-    /*let newPostElement = React.createRef<HTMLTextAreaElement>();*/
 
     let onAddPost = (values: FormMessageType) => {
         props.addPost(values.newMyPostText);
@@ -40,7 +42,7 @@ type FormMessageType = {
 let AddMyPostForm: FC<InjectedFormProps<FormMessageType>> = ({handleSubmit}) => {
     return <form onSubmit={handleSubmit}>
         <div>
-            <Field component={"textarea"} name={"newMyPostText"}/>
+            <Field component={Textarea} name={"newMyPostText"} validate={[required, mathLength10]} placeholder={"Post message"}/>
         </div>
         <button> Add post</button>
     </form>
