@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styles from "./users.module.css";
 import userPhoto from "../../asserts/images/Meelo.png";
-import {InitialStateType, toggleFollowingProgress} from "../../redux/users-reducer";
+import {InitialStateType} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
 
 type UsersPropsType = {

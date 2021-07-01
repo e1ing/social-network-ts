@@ -12,11 +12,7 @@ export type MessageType = {
     id: string
     message: string
 }
-export type DialogsPageType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    newMessageBody: string
-}
+
 
 let initialState = {
     dialogs: [

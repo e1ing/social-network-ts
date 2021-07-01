@@ -1,4 +1,4 @@
-export const q = () => {};
+export const q = () => {}
 
 
 
@@ -23,10 +23,7 @@ export const q = () => {};
     newPostText: string
 }*/
 //
-/*export type DialogsPageType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    newMessageBody: string //тут спросить
+/*
 }*/
 
 /*export type SidebarType = {}
@@ -36,7 +33,6 @@ export type RootStateType = {
     dialogsPage: DialogsPageType*/
     // sidebar: SidebarType
 
-}
 
 /*export type ProfileCallbacksType = {
     addPostCallback: () => void
