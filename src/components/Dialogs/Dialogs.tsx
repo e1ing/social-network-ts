@@ -54,12 +54,14 @@ type FormMessageType = {
 }
 
 
-const mathLength10 = maxLengthCreator(10);
+const mathLength100 = maxLengthCreator(100);
 const AddMessageForm: FC<InjectedFormProps<FormMessageType>> = ({handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <Field component={Textarea} validate={[required, mathLength10]} name={"newMessageBody"} placeholder={"enterMessage"}/>
+                <Field component={Textarea}
+                       validate={[required,
+                           mathLength100]} name={"newMessageBody"} placeholder={"enterMessage"}/>
             </div>
             <div>
                 <button> Send</button>
