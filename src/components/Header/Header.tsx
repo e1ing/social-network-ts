@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import classes from './Header.module.css';
 import { NavLink } from 'react-router-dom';
+import logo from "../../asserts/images/logo.png";
 
 type HeaderPropsType ={
     isAuth: boolean
@@ -9,7 +10,7 @@ type HeaderPropsType ={
 }
 const Header: FC<HeaderPropsType> = ({isAuth, login}) => {
     return <header className = {classes.header}>
-        <img alt='Some beach here' src='https://cdn.logo.com/hotlink-ok/logo-social-sq.png'/>
+        <img alt='Some beach here' src={logo}/>
         <div className={classes.loginBlock}>
             {isAuth ?  login
             :

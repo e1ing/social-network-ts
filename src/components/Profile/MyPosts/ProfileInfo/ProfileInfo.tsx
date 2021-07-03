@@ -10,7 +10,6 @@ type ProfileInfoPropsType = {
 }
 
 const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status,updateStatus}) => {
-
     if (!profile) {
         return <Preloader/>
     }
@@ -22,7 +21,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status,updateStat
                     src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350'/>
             </div>*/}
             <div className="classes.descriptionBlock">
-                <img src={profile.photos.large}></img>
+                <img src={profile.photos.large}/>
                 <ProfileStatus status={status} updateStatus={updateStatus}/>
             </div>
         </div>

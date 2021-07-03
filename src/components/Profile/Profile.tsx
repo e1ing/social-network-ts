@@ -1,11 +1,11 @@
 import React from 'react';
 import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfileType, updateStatus} from "../../redux/profile-reducer";
+import {ProfileType} from "../../redux/profile-reducer";
 
 type PropsType = {
     profile: ProfileType | null,
-    status: string|" "
+    status: string
     updateStatus: (status: string) => void
 }
 

@@ -4,7 +4,7 @@ const instance = axios.create({
     withCredentials: true,
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
     headers: {
-        "API-KEY": "2e663c7e-754e-4005-8ebe-08de0775050a"
+        "API-KEY": "b00b044a-fabf-40f0-8522-d4dd85a812f0"
     }
 }) //object-instance
 
@@ -40,7 +40,7 @@ export const profileAPI = {
         return instance.get("profile/status/" + userId);
     },
     updateStatus(status: string){
-        return instance.put("profile/status", {status: status});
+        return instance.put("profile/status", {status});
     }
 }
 
