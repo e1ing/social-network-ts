@@ -1,30 +1,38 @@
-import React from 'react';
-import styles from "./FormsControl.module.css"
-import {Simulate} from "react-dom/test-utils";
+import React, {FC, InputHTMLAttributes, TextareaHTMLAttributes} from 'react';
+import {FieldMetaProps} from "formik";
 
 
-export FormControl = ({input, meta, child, ...props}) => {
-    const hasError = meta.touched && meta.error
+type ElementProps = {
+    formik: any
+    name: string
+}
 
-    return(
-        <div className={styles.formControl+ " "+ (hasError ? styles.error: "")}>
-            <div>
-              {props.children}
-            </div>
-            { hasError && <span> {meta.error}</span>}
+export const FormControl: FC<ElementProps> = ({children, name, formik: {errors, touched}}) => {
+    const hasError = touched[name] && errors && errors[name]
+    return (
+        <div>
+            {children}
+            {hasError && <span>{errors[name]}</span>}
+            {/*<input  {...formik.getFieldProps({input})}  onBlur={formik.handleBlur} />*/}
+            {/*{formik.touched.input && formik.errors.input ? <div style={{color: "red"}}>  {formik.errors.input} </div> : null}*/}
         </div>
     )
 }
 
-export const Textarea = (props) => {
-    const ({input, meta, child, element, ...props}) = props
-    return(
-      <FormControl {...props}> <textarea {...props.input}{...restProps}/></FormControl>
+
+
+export const Textarea = (props: ElementProps & TextareaHTMLAttributes<HTMLTextAreaElement>) => {
+    const {formik, name, ...restProps} = props
+    return (
+        <FormControl {...props}> <textarea {...restProps} {...formik.getFieldProps(name)}
+                                           onBlur={formik.handleBlur}/></FormControl>
     )
 }
-export const Input = (props) => {
-    const ({input, meta, child, element, ...props}) = props
-    return(
-        <FormControl {...props}> <input {...input}{...restProps}/></FormControl>
+export const Input = (props: ElementProps & InputHTMLAttributes<HTMLInputElement>) => {
+    const { formik, name, ...restProps} = props
+    return (
+        <FormControl {...props}> <input {...restProps} {...formik.getFieldProps(name)}
+                                        onBlur={formik.handleBlur}/></FormControl>
     )
 }
+

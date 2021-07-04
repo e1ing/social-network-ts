@@ -4,9 +4,10 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {InitialStateType} from "../../redux/dialogs-reducer";
 import {Redirect} from 'react-router-dom';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Textarea} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
+import {FormDataType} from "../login/Login";
+import {useFormik} from "formik";
 
 type DialogsPropsType = {
     sendMessage: (body: string) => void
@@ -47,21 +48,36 @@ const Dialogs: React.FC<DialogsPropsType> = ({
     )
 }
 
-type FormMessageType = {
-    textarea: string
-    newMessageBody: string
-    enterMessage: string
-}
 
 
 const mathLength100 = maxLengthCreator(100);
-const AddMessageForm: FC<InjectedFormProps<FormMessageType>> = ({handleSubmit}) => {
+const AddMessageForm: FC<FormDataType> = () => {
+    type FormikErrorType = {
+        newMessageBody?: string
+    }
+    const formik = useFormik({
+        initialValues: {
+            newMessageBody: ''
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.newMessageBody) {
+                errors.newMessageBody = "Required";
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.newMessageBody)) {
+                errors.newMessageBody = "Invalid login";
+            }
+            return errors;
+        },
+        onSubmit: values => {
+            alert(JSON.stringify(values));
+            formik.resetForm()
+        },
+
+    })
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
             <div>
-                <Field component={Textarea}
-                       validate={[required,
-                           mathLength100]} name={"newMessageBody"} placeholder={"enterMessage"}/>
+                <Textarea  formik = {formik} name={"newMessageBody"} placeholder={"enterMessage"}/>
             </div>
             <div>
                 <button> Send</button>

@@ -1,18 +1,48 @@
 import React, {FC} from "react";
-import {Field, InjectedFormProps} from "redux-form";
-import { FormDataType } from "./Login";
-import {required} from "../../utils/validators/validators";
+import {FormDataType} from "./Login";
+import {useFormik} from "formik";
+import {Input} from "../common/FormsControls/FormsControls";
 
 
+const LoginForm: FC <FormDataType>= () => {
 
-const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
+    type FormikErrorType = {
+        login?: string
+        password?: string
+        rememberMe?: boolean
+    }
+
+    const formik = useFormik({
+        initialValues: {
+            login: '',
+            password: '',
+            rememberMe: false
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.login) {
+                errors.login = "Required";
+                errors.password = "Required";
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.login)) {
+                errors.login = "Invalid login";
+                errors.password = "Invalid login";
+            }
+            return errors;
+        },
+        onSubmit: values => {
+            alert(JSON.stringify(values));
+            formik.resetForm()
+        },
+
+    })
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div><Field placeholder={"Login"} name={"login"} component={"input"} validate={[required]}/>
-                <Field placeholder={"Password"} name={"password"} component={"input"}/>
+        <form onSubmit={formik.handleSubmit}>
+            <div>
+                <Input placeholder={"Login"} formik = {formik} name={'login'} />
+                <Input placeholder={"Password"}  formik = {formik}  name={'password'} />
             </div>
-            <div><Field component={"input"} name={"rememberMe"} type={"checkbox"}/></div>
+            <div><Input type={"checkbox"} formik = {formik} name={'rememberMe'}/></div>
             <div>
                 <button>Login</button>
             </div>
