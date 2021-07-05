@@ -1,6 +1,7 @@
 import React from 'react';
 import {reduxForm} from "redux-form";
 import LoginForm from "./LoginForm";
+import {connect} from "react-redux";
 
 export type FormDataType = {
     login: string
@@ -8,7 +9,7 @@ export type FormDataType = {
     rememberMe: boolean
 }
 
-const Login = () => {
+const Login = (props) => {
     const onSubmit = (formData: FormDataType) => {
         console.log(formData)
     }
@@ -24,4 +25,4 @@ const Login = () => {
 const LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
 
-export default Login;
+export default connect(null, {login: email})(Login);

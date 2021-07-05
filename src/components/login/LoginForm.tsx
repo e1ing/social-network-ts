@@ -1,10 +1,9 @@
 import React, {FC} from "react";
-import {FormDataType} from "./Login";
 import {useFormik} from "formik";
 import {Input} from "../common/FormsControls/FormsControls";
 
 
-const LoginForm: FC <FormDataType>= () => {
+const LoginForm: FC = () => {
 
     type FormikErrorType = {
         login?: string
@@ -14,16 +13,16 @@ const LoginForm: FC <FormDataType>= () => {
 
     const formik = useFormik({
         initialValues: {
-            login: '',
+            email: '',
             password: '',
             rememberMe: false
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
-            if (!values.login) {
+            if (!values.email) {
                 errors.login = "Required";
                 errors.password = "Required";
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.login)) {
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.login = "Invalid login";
                 errors.password = "Invalid login";
             }
