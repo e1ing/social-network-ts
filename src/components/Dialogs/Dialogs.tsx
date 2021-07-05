@@ -8,6 +8,7 @@ import {Textarea} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
 import {FormDataType} from "../login/Login";
 import {useFormik} from "formik";
+import AddMessageForm from "./Message/AddMessageForm";
 
 type DialogsPropsType = {
     sendMessage: (body: string) => void
@@ -27,9 +28,9 @@ const Dialogs: React.FC<DialogsPropsType> = ({
     let messagesElements = dialogsPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>)
 
 
-    let addNewMessage = (values: FormMessageType) => {
+ /*   let addNewMessage = (values: FormMessageType) => {
         sendMessage(values.newMessageBody)
-    }
+    }*/
 
     if (isAuth===false) return <Redirect to={'/login'}/>
     return (
@@ -41,7 +42,7 @@ const Dialogs: React.FC<DialogsPropsType> = ({
 
             <div className={classes.messages}>
                 <div>{messagesElements}</div>
-                <AddMessageFormRedux onSubmit={addNewMessage}/>
+                <AddMessageForm onSubmit={addNewMessage}/>
             </div>
 
         </div>
@@ -49,44 +50,5 @@ const Dialogs: React.FC<DialogsPropsType> = ({
 }
 
 
-
-const mathLength100 = maxLengthCreator(100);
-const AddMessageForm: FC<FormDataType> = () => {
-    type FormikErrorType = {
-        newMessageBody?: string
-    }
-    const formik = useFormik({
-        initialValues: {
-            newMessageBody: ''
-        },
-        validate: (values) => {
-            const errors: FormikErrorType = {};
-            if (!values.newMessageBody) {
-                errors.newMessageBody = "Required";
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.newMessageBody)) {
-                errors.newMessageBody = "Invalid login";
-            }
-            return errors;
-        },
-        onSubmit: values => {
-            alert(JSON.stringify(values));
-            formik.resetForm()
-        },
-
-    })
-    return (
-        <form onSubmit={formik.handleSubmit}>
-            <div>
-                <Textarea  formik = {formik} name={"newMessageBody"} placeholder={"enterMessage"}/>
-            </div>
-            <div>
-                <button> Send</button>
-            </div>
-
-        </form>
-    )
-}
-
-const AddMessageFormRedux = reduxForm<FormMessageType>({form: "dialogAddMessageForm"})(AddMessageForm)
 
 export default Dialogs;
