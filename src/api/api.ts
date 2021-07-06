@@ -71,7 +71,7 @@ export const followAPI = {
 
 export const unfollowAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
-        return axios.delete('follow',
+        return axios.delete<boolean>('follow',
             {
                 params: {
                     page: currentPage,
