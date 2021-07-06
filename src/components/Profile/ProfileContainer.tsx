@@ -9,8 +9,10 @@ import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 export type MapStateToPropsType = {
-    profile: ProfileType | null,
+    profile: ProfileType | null
     status: string
+    authorizedUserId: number
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
@@ -31,7 +33,7 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = Number(this.props.match.params.userId)
         if (!userId) {
-            userId = 17186
+            userId = this.props.authorizedUserId;
         }
         this.props.getUserProfile(userId);
         this.props.getStatus(userId);
@@ -50,7 +52,10 @@ class ProfileContainer extends React.Component<PropsType> {
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 });
+
 
 
 export default compose<ComponentType>(

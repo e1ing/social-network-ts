@@ -3,7 +3,8 @@ import {useFormik} from "formik";
 import {Input} from "../common/FormsControls/FormsControls";
 
 
-const LoginForm: FC = () => {
+type PropsType = { onSubmit: (email: string, password: string, rememberMe: boolean) => void };
+const LoginForm: FC<PropsType> = ({onSubmit}) => {
 
     type FormikErrorType = {
         email?: string
@@ -33,6 +34,7 @@ const LoginForm: FC = () => {
         },
         onSubmit: values => {
             alert(JSON.stringify(values));
+            onSubmit(values.email, values.password, values.rememberMe)
             formik.resetForm()
         },
 
@@ -41,7 +43,7 @@ const LoginForm: FC = () => {
     return (
         <form onSubmit={formik.handleSubmit}>
             <div>
-                <Input placeholder={"Login"} formik = {formik} name={'login'} />
+                <Input placeholder={"email"} formik = {formik} name={'email'} />
                 <Input placeholder={"Password"}  formik = {formik}  name={'password'} />
             </div>
             <div><Input type={"checkbox"} formik = {formik} name={'rememberMe'}/></div>

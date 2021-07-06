@@ -45,23 +45,13 @@ export const profileAPI = {
 
 export const authAPI = {
     me() {
-<<<<<<< HEAD
         return instance.get<MeResponseType>(`auth/me`)
     },
-    email(email: string, password: string, rememberMe = false) {
-        return instance.get<MeResponseType>(`auth/login`, {email, password, rememberMe})
+    login(email: string, password: string, rememberMe = false) {
+        return instance.post<MeResponseType>(`auth/login`, {email, password, rememberMe})
     },
     logout() {
         return instance.delete<LogoutMeResponseType>(`auth/login`)
-=======
-        return instance.get(`auth/me`)
-    },
-    email(email: string, password: string, rememberMe=false) {
-        return instance.get(`auth/login`, {email, password, rememberMe})
-    },
-    logout() {
-        return instance.delete(`auth/login`)
->>>>>>> c5476e6ed9e931066bf0b9a25212d5e0eacb6511
     }
 }
 
@@ -102,12 +92,19 @@ type PhotosType = { small: string, large: string }
 
 //usersAPI types
 type GetUsersResponseType = {
-    id: string
-    name: string
-    status: string
-    photos: PhotosType
-    followed: boolean
+    items: [
+        {
+            id: string
+            name: string
+            status: string
+            photos: PhotosType
+            followed: boolean
+        }
+    ],
+    totalCount: number,
+    error: string
 }
+
 type FollowUnfollowResponseType = {
     resultCode: ResultCode
     messages: Array<string>
