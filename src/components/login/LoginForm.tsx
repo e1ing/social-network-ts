@@ -6,7 +6,7 @@ import {Input} from "../common/FormsControls/FormsControls";
 const LoginForm: FC = () => {
 
     type FormikErrorType = {
-        login?: string
+        email?: string
         password?: string
         rememberMe?: boolean
     }
@@ -20,10 +20,10 @@ const LoginForm: FC = () => {
         validate: (values) => {
             const errors: FormikErrorType = {};
             if (!values.email) {
-                errors.login = "Required";
+                errors.email = "Required";
                 errors.password = "Required";
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.login = "Invalid login";
+                errors.email = "Invalid login";
                 errors.password = "Invalid login";
             }
             return errors;

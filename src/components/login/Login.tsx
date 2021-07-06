@@ -4,25 +4,23 @@ import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
 
 export type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
 
-const Login = (props) => {
-    const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
-    }
+const Login = () => {
+
     return <div>
         <h1></h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginForm />
     </div>
 }
 
 
 
 
-const LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
+//const LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
 
-export default connect(null, {login: email})(Login);
+export default connect( )(Login);

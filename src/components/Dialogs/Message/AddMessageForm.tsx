@@ -6,7 +6,7 @@ import {Textarea} from "../../common/FormsControls/FormsControls";
 import Dialogs from "../Dialogs";
 
 const mathLength100 = maxLengthCreator(100);
-const AddMessageForm: FC<FormDataType> = () => {
+const AddMessageForm: FC<{}> = () => {
     type FormikErrorType = {
         newMessageBody?: string
     }
