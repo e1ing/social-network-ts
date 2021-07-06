@@ -45,6 +45,7 @@ export const profileAPI = {
 
 export const authAPI = {
     me() {
+<<<<<<< HEAD
         return instance.get<MeResponseType>(`auth/me`)
     },
     email(email: string, password: string, rememberMe = false) {
@@ -52,6 +53,15 @@ export const authAPI = {
     },
     logout() {
         return instance.delete<LogoutMeResponseType>(`auth/login`)
+=======
+        return instance.get(`auth/me`)
+    },
+    email(email: string, password: string, rememberMe=false) {
+        return instance.get(`auth/login`, {email, password, rememberMe})
+    },
+    logout() {
+        return instance.delete(`auth/login`)
+>>>>>>> c5476e6ed9e931066bf0b9a25212d5e0eacb6511
     }
 }
 

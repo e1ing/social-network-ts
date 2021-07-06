@@ -10,7 +10,6 @@ export type FormDataType = {
 }
 
 const Login = () => {
-
     return <div>
         <h1></h1>
         <LoginForm />
@@ -22,5 +21,5 @@ const Login = () => {
 
 //const LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
-
 export default connect( )(Login);
+
