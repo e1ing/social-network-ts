@@ -68,7 +68,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 })(UsersContainer))*/
 
 export default compose<ComponentType>(
-withAuthRedirect,
     connect(mapStateToProps, {
         follow, unfollow, setCurrentPage, getUsers
     }))(UsersContainer)

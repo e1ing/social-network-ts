@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./redux-store";
-import {FormAction, stopSubmit } from "redux-form";
+import {FormAction, stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET_USER_DATA";
 
@@ -40,8 +40,8 @@ export const setAuthUserData = (userId: number, email: string, login: string, is
     type: SET_USER_DATA, payload: {userId, email, login: email, isAuth}
 }) as const
 
-export const getAuthUserData =() => (dispatch: Dispatch<AuthActionsTypes>) => {
-    authAPI.me()
+export const getAuthUserData = () => (dispatch: Dispatch<AuthActionsTypes>) => {
+    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
@@ -60,16 +60,16 @@ export const login = (
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData());
             } else {
-                let message = response.data.messages.length > 0 ? response.data.messages[0]: "Some error"
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
                 dispatch(stopSubmit("login", {_eror: message}))
             }
         });
 }
-export const logout =() => (dispatch: Dispatch<AuthActionsTypes>) => {
+export const logout = () => (dispatch: Dispatch<AuthActionsTypes>) => {
     authAPI.logout()
         .then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(-1,"", "", false));
+                dispatch(setAuthUserData(-1, "", "", false));
             }
         });
 }
