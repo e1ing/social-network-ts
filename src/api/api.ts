@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UserType} from "../redux/users-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -17,6 +18,7 @@ export const usersAPI = {
                     count: pageSize
                 }
             }).then(response => {
+                debugger
             return response.data;
         });
     },
@@ -92,15 +94,7 @@ type PhotosType = { small: string, large: string }
 
 //usersAPI types
 type GetUsersResponseType = {
-    items: [
-        {
-            id: string
-            name: string
-            status: string
-            photos: PhotosType
-            followed: boolean
-        }
-    ],
+    items:  Array<UserType>,
     totalCount: number,
     error: string
 }
