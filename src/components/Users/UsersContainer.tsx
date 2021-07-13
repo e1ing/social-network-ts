@@ -11,7 +11,7 @@ import {
     getFollowingProgress,
     getIsFetching,
     getPageSize,
-    getTotalUsersCount
+    getTotalUsersCount, getUsers
 } from "../../redux/users-selectors";
 
 
@@ -72,7 +72,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        usersPage: requestUsers(state),
+        usersPage: getUsers(state),
         currentPage: getCurrentPage(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
