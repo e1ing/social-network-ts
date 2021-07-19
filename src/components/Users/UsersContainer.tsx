@@ -1,6 +1,6 @@
 import React, {Component, ComponentType} from 'react';
 import {connect} from "react-redux";
-import {follow, requestUsers, InitialStateType, setCurrentPage, unfollow,} from '../../redux/users-reducer';
+import {follow, requestUsers, InitialStateType, setCurrentPage, unfollow, UserType,} from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import Users from './Users';
 import Preloader from "../common/preloader/Preloader";
@@ -30,7 +30,7 @@ class UsersContainer extends Component <UsersPropsType> {
     render() {
         return <>
 
-            {this.props.usersPage.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <Preloader/> : null}
 
             <Users
                 usersPage={this.props.usersPage}
@@ -52,7 +52,7 @@ export type MapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void
 }
 type MapStateToPropsType = {
-    usersPage: InitialStateType
+    usersPage: Array<UserType>
     currentPage: number
     pageSize: number
     totalUsersCount: number
