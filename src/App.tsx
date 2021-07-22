@@ -9,6 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type PropsType = {
     // store: StoreType
+    // dispatch: (action: ActionsTypes) => void// store: StoreType
     // dispatch: (action: ActionsTypes) => void
 }
 
