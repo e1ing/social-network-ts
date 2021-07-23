@@ -3,15 +3,7 @@ import {v1} from "uuid";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
-export type DialogType = {
-    id: string
-    name: string
-}
 
-export type MessageType = {
-    id: string
-    message: string
-}
 
 let initialState = {
     dialogs: [
@@ -57,5 +49,18 @@ export const updateNewMessageBodyAC = (body: string) => ({
     type: UPDATE_NEW_MESSAGE_BODY,
     newText: body
 }) as const
+
+//types
+export type DialogType = {
+    id: string
+    name: string
+    avatar: string
+}
+export type MessageType = {
+    id: string
+    message: string
+}
+
+export type InitialStatType = typeof initialState
 
 export default dialogsReducer;
