@@ -6,15 +6,6 @@ import {InitialStateType} from "../../redux/dialogs-reducer";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 
-type MapStatePropsType = {
-    dialogsPage: InitialStateType //дробить?
-}
-
-type MapDispatchPropsType = {
-    updateNewMessageBody: (body: string) => void
-    sendMessage: () => void
-}
-
 export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
@@ -36,3 +27,13 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;
+
+
+type MapStatePropsType = {
+    dialogsPage: InitialStateType //дробить?
+}
+
+type MapDispatchPropsType = {
+    updateNewMessageBody: (body: string) => void
+    sendMessage: () => void
+}

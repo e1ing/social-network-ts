@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react'
+import React, {ChangeEvent, FC} from 'react'
 import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
@@ -10,13 +10,11 @@ type DialogsPropsType = {
     dialogsPage: InitialStateType
 }
 
-const Dialogs: React.FC<DialogsPropsType> = ({
+const Dialogs: FC<DialogsPropsType> = ({
                                           updateNewMessageBody,
                                           sendMessage,
                                           dialogsPage
                                       }) => {
-
-    // let state_=state.dialogsPage;
 
     let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>)
     let messagesElements = dialogsPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>)
