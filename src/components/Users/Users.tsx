@@ -1,8 +1,7 @@
-import * as axios from 'axios';
-import React, {FC} from 'react';
+import React, {Component} from 'react';
+import styles from "./users.module.css";
 import {UserType} from "../../redux/users-reducer";
-import styles from "./users.module.css"
-import userPhoto from "../../asserts/images/user.jpg"
+import  axios from "axios";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -11,49 +10,32 @@ type UsersPropsType = {
     unfollow: (userId: number) => void
 }
 
-const Users: FC<UsersPropsType> = ({users, setUsers, follow, unfollow}) => {
-
-    const getUsers = () => {
-        if (users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0").then(response => {
-                setUsers(response.data.items)
-            })
-        }
+class Users extends Component<UsersPropsType, {}>{
+    constructor(props: UsersPropsType) {
+        super(props);
+                axios.get("https://social-network.samuraijs.com/api/1.0").then(response => {
+                    this.props.setUsers(response.data.items)
+                })
     }
+    getUsers() {
 
-       /* setUsers([{
-            id: 1,
-            photoUrl: "https://64.media.tumblr.com/b6fe98122ee1194b337ade30b4869579/tumblr_inline_ntpfktqljm1spg4o9_540.jpg",
-            followed: true,
-            name: "Pako",
-            status: "Pako loves buns",
-            location: {country: "Ukraine", city: "Lviv"}
-        },
+    }
+    render(){
+        return <div>
+            <button onClick={ this.getUsers}>Get users</button>
             {
-                id: 2,
-                photoUrl: "https://64.media.tumblr.com/b6fe98122ee1194b337ade30b4869579/tumblr_inline_ntpfktqljm1spg4o9_540.jpg",
-                followed: false,
-                name: "Tako",
-                status: "Tako loves buns",
-                location: {country: "Ukraine", city: "Kyiv"}
-            }])*/
-
-    return (
-        <div>
-            <button onClick={getUsers}>Get users</button>
-            {
-                users.map(u => <div key={u.id}>
+                this.props.users.map(u => <div key={u.id}>
                     <span>
                         <div> <img src={u.photos.small!==null ? u.photos.small : "userPhoto"} className={styles.userPhoto}/> </div>
                         <div>
                             {u.followed
                                 ?
                                 <button onClick={() => {
-                                    follow(u.id)
+                                    this.props.follow(u.id)
                                 }}> Unfollow </button>
                                 :
                                 <button onClick={() => {
-                                    unfollow(u.id)
+                                    this.props.unfollow(u.id)
                                 }}> Follow </button>
                             }
 
@@ -71,7 +53,7 @@ const Users: FC<UsersPropsType> = ({users, setUsers, follow, unfollow}) => {
                 </div>)
             }
         </div>
-    )
+    }
 }
 
 export default Users;
