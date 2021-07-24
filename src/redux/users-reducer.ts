@@ -1,6 +1,6 @@
 
 let initialState: InitialStateType = {
-    users: [ ]
+    users: []
 }
 
 const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
