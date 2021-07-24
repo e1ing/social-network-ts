@@ -1,4 +1,8 @@
-.usersPhoto{
-    width: 200px;
-    height: 200px;
+.userPhoto{
+    width: 150px;
+    height: 150px;
+}
+
+.selectedPage{
+    font-weight: bold;
 }
