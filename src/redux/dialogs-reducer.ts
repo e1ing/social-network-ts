@@ -54,7 +54,7 @@ export const updateNewMessageBodyAC = (body: string) => ({
 export type DialogType = {
     id: string
     name: string
-    avatar: string
+    avatar?: string
 }
 export type MessageType = {
     id: string

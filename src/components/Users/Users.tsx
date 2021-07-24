@@ -1,15 +1,33 @@
 import React, {FC} from 'react';
-import {setUsersAC, UserType} from "../../redux/users-reducer";
+import {UserType} from "../../redux/users-reducer";
 import styles from "./users.module.css"
 
-type UsersType = {
+type UsersPropsType = {
     users: Array<UserType>
+    setUsers: (users: Array<UserType>) => void
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
 }
 
-let Users: FC <UsersType> = (users) => {
+let Users: FC<UsersPropsType> = (users, setUsers) => {
 
-    if (users.length === 0){
-        setUsers([])
+    if (users.length === 0) {
+        setUsers([{
+            id: 1,
+            photoUrl: "https://64.media.tumblr.com/b6fe98122ee1194b337ade30b4869579/tumblr_inline_ntpfktqljm1spg4o9_540.jpg",
+            followed: true,
+            name: "Pako",
+            status: "Pako loves buns",
+            location: {country: "Ukraine", city: "Lviv"}
+        },
+            {
+                id: 2,
+                photoUrl: "https://64.media.tumblr.com/b6fe98122ee1194b337ade30b4869579/tumblr_inline_ntpfktqljm1spg4o9_540.jpg",
+                followed: false,
+                name: "Tako",
+                status: "Tako loves buns",
+                location: {country: "Ukraine", city: "Kyiv"}
+            }])
     }
     return (
         <div>
@@ -20,25 +38,29 @@ let Users: FC <UsersType> = (users) => {
                         <div>
                             {u.followed
                                 ?
-                                <button onClick={()=> {users.follow(u.id)}}> Unfollow </button>
+                                <button onClick={() => {
+                                    users.follow(u.id)
+                                }}> Unfollow </button>
                                 :
-                                <button onClick={()=> {users.unfollow(u.id)}}> Follow </button>
+                                <button onClick={() => {
+                                    users.unfollow(u.id)
+                                }}> Follow </button>
                             }
 
                         </div>
                     </span>
-<span>
+                    <span>
     <div>{u.name}</div>
     <div>{u.status}</div>
 </span>
 
-<span>
+                    <span>
     <div>{u.location.country}</div>
     <div>{u.location.city}</div>
 </span>
                 </div>)
             }
-    </div>
+        </div>
     )
 }
 
