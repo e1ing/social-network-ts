@@ -11,9 +11,9 @@ type UsersPropsType = {
 }
 
 class Users extends Component<UsersPropsType, {}>{
-    constructor(props: UsersPropsType) {
+    constructor(props: any) {
         super(props);
-                axios.get("https://social-network.samuraijs.com/api/1.0").then(response => {
+                axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
                     this.props.setUsers(response.data.items)
                 })
     }
@@ -22,7 +22,7 @@ class Users extends Component<UsersPropsType, {}>{
     }
     render(){
         return <div>
-            <button onClick={ this.getUsers}>Get users</button>
+            <button onClick={this.getUsers}>Get users</button>
             {
                 this.props.users.map(u => <div key={u.id}>
                     <span>
@@ -30,13 +30,9 @@ class Users extends Component<UsersPropsType, {}>{
                         <div>
                             {u.followed
                                 ?
-                                <button onClick={() => {
-                                    this.props.follow(u.id)
-                                }}> Unfollow </button>
+                                <button onClick={() => {this.props.unfollow(u.id)}}> Unfollow </button>
                                 :
-                                <button onClick={() => {
-                                    this.props.unfollow(u.id)
-                                }}> Follow </button>
+                                <button onClick={() => {this.props.follow(u.id)}}> Follow </button>
                             }
 
                         </div>

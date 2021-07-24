@@ -50,7 +50,6 @@ export type UserType = {
         large: string|null
     }
     followed: boolean,
-
     status: string,
     location: {country: string, city: string}
 }
