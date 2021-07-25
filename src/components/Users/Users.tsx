@@ -14,6 +14,7 @@ const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount, pag
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
+    }
 
         return <div>
             <div>
@@ -53,7 +54,7 @@ const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount, pag
                 </div>)
             }
         </div>
-    }
+
 }
     export default Users;
 
