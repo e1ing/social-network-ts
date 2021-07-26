@@ -1,20 +1,20 @@
 import {FC} from 'react';
 import classes from './Header.module.css';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import logo from "../../asserts/images/logo.png";
 
-type HeaderPropsType ={
+type HeaderPropsType = {
     isAuth: boolean
-    login: string
-    getAuthUserData: () => void
+    email: string
+    logout: () => void
 }
-const Header: FC<HeaderPropsType> = ({isAuth, login}) => {
-    return <header className = {classes.header}>
+const Header: FC<HeaderPropsType> = ({isAuth, email, logout}) => {
+    return <header className={classes.header}>
         <img alt='Some beach here' src={logo}/>
         <div className={classes.loginBlock}>
-            {isAuth ?  login
-            :
-            <NavLink to={'./login'}>Log In</NavLink>}
+            {isAuth
+                ? <div> {email} - <button onClick={logout}>Logout</button></div>
+                : <NavLink to={'./login'}>Login</NavLink>}
         </div>
     </header>;
 }

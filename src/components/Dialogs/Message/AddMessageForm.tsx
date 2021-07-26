@@ -1,12 +1,10 @@
 import {maxLengthCreator} from "../../../utils/validators/validators";
 import React, {FC} from "react";
-import {FormDataType} from "../../login/Login";
 import {useFormik} from "formik";
 import {Textarea} from "../../common/FormsControls/FormsControls";
-import Dialogs from "../Dialogs";
 
 const mathLength100 = maxLengthCreator(100);
-const AddMessageForm: FC<FormDataType> = () => {
+const AddMessageForm: FC<{}> = () => {
     type FormikErrorType = {
         newMessageBody?: string
     }

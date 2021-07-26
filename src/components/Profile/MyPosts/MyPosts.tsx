@@ -3,8 +3,8 @@ import classes from './MyPosts.module.css';
 import Post from "./Posts/Post";
 import {InitialStateType} from "../../../redux/profile-reducer";
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {Textarea} from "../../common/FormsControls/FormsControls";
+import {maxLengthCreator} from "../../../utils/validators/validators";
+import AddMessageForm from "../../Dialogs/Message/AddMessageForm";
 
 type MyPostsPropsType = {
     profilePage: InitialStateType
@@ -42,7 +42,7 @@ type FormMessageType = {
 let AddMyPostForm: FC<InjectedFormProps<FormMessageType>> = ({handleSubmit}) => {
     return <form onSubmit={handleSubmit}>
         <div>
-            <Field component={Textarea} name={"newMyPostText"} validate={[required, mathLength10]} placeholder={"Post message"}/>
+            <AddMessageForm/>
         </div>
         <button> Add post</button>
     </form>

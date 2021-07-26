@@ -2,6 +2,7 @@ import React from 'react';
 import Preloader from "../../../common/preloader/Preloader";
 import {ProfileType} from "../../../../redux/profile-reducer";
 import  ProfileStatus from "./ProfileStatus"
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null,
@@ -22,7 +23,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status,updateStat
             </div>*/}
             <div className="classes.descriptionBlock">
                 <img src={profile.photos.large}/>
-                <ProfileStatus status={status} updateStatus={updateStatus}/>
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
         </div>
             )

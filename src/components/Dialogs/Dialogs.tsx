@@ -4,10 +4,6 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {InitialStateType} from "../../redux/dialogs-reducer";
 import {Redirect} from 'react-router-dom';
-import {Textarea} from "../common/FormsControls/FormsControls";
-import {maxLengthCreator, required} from "../../utils/validators/validators";
-import {FormDataType} from "../login/Login";
-import {useFormik} from "formik";
 import AddMessageForm from "./Message/AddMessageForm";
 
 type DialogsPropsType = {
@@ -42,7 +38,7 @@ const Dialogs: React.FC<DialogsPropsType> = ({
 
             <div className={classes.messages}>
                 <div>{messagesElements}</div>
-                <AddMessageForm onSubmit={addNewMessage}/>
+                <AddMessageForm />
             </div>
 
         </div>
