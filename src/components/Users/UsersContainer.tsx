@@ -9,7 +9,6 @@ import {
     unfollow,
     UserType
 } from "../../redux/users-reducer";
-import {Dispatch} from 'redux';
 import axios from "axios";
 import {connect} from "react-redux";
 import Users from "./Users";

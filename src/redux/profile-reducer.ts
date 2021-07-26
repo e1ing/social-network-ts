@@ -1,14 +1,5 @@
 import {v1} from "uuid";
-import {ActionsTypes} from "./store";
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-
-export type PostType = {
-    id: string
-    message: string
-    likesCount: number
-}
 
 let initialState = {
     newPostText: "",
@@ -17,6 +8,7 @@ let initialState = {
         {id: v1(), message: "It's my first post", likesCount: 7},
         {id: v1(), message: "It's my second post", likesCount: 5}
     ] as Array<PostType>,
+    profile: null as null | ProfileType
 };
 
 export type InitialStateType = typeof initialState
@@ -36,6 +28,10 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
             return {
                 ...state, newPostText: action.newText
             }
+        case SET_USER_PROFILE:
+            return {
+                ...state, profile: action.profile
+            }
         default:
             return state;
     }
@@ -47,3 +43,37 @@ export const updateNewPostTextAC = (text: string) => ({ //?поменяла на
     newText: text
 }) as const
 export default profileReducer;
+
+export const setUserProfile = (profile:ProfileType|null) => ({type: SET_USER_PROFILE, profile}as const)
+
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
+
+export type PostType = {
+    id: string
+    message: string
+    likesCount: number
+}
+
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ProfileContactsType
+    photos: {small: string, large: string}
+}
+
+export type ProfileContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC> | ReturnType<typeof setUserProfile>

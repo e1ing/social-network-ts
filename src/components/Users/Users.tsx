@@ -2,6 +2,7 @@ import styles from "./users.module.css";
 import userPhoto from "../../asserts/images/user.jpg";
 import React, { FC } from "react";
 import {UserType} from "../../redux/users-reducer";
+import { NavLink } from "react-router-dom";
 
 
 const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount, pageSize, onPageChanged, currentPage }) => {
@@ -30,8 +31,12 @@ const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount, pag
             {
               users.map(u => <div key={u.id}>
                     <span>
-                        <div> <img src={u.photos.small !== null ? u.photos.small : userPhoto}
-                                   className={styles.userPhoto}/> </div>
+                        <div>
+                              <NavLink to={"/profile/"}>
+                            <img src={u.photos.small !== null ? u.photos.small : userPhoto}
+                                   className={styles.userPhoto}/>
+                              </NavLink>
+                              </div>
                         <div>
                             {u.followed
                                 ?
