@@ -3,7 +3,8 @@ let initialState: InitialStateType = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [],
 }
 
 const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -38,6 +39,11 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionsTyp
             return {...state, totalUsersCount: action.totalUsersCount}
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {...state, followingInProgress: action.isFetching
+                        ? [...state.followingInProgress, action.id]
+            :  state.followingInProgress.filter(id=>id!=action.id)
+            }
         default:
             return state;
     }
@@ -48,6 +54,7 @@ export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users} as
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+export const toggleFollowingProgress = (isFetching: boolean, id: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id} as const)
 
 type ActionsTypes = ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
@@ -55,6 +62,7 @@ type ActionsTypes = ReturnType<typeof follow>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleFollowingProgress>
 
 
 export default usersReducer;
@@ -78,6 +86,7 @@ export type InitialStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 
 const FOLLOW = "FOLLOW";
@@ -86,3 +95,4 @@ const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
+const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
