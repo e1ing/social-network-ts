@@ -5,10 +5,15 @@ import {UserType} from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
-class ProfileContainer extends Component<ProfileContainerPropsType> {
+class ProfileContainer extends Component<CommonProfileContainerPropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = 2;
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2` + userId)
             .then(response => {
                 debugger
                 this.props.setUserProfile(response.data)
@@ -22,9 +27,12 @@ class ProfileContainer extends Component<ProfileContainerPropsType> {
     }
 }
 
-let mapStateToProps = (state: AppStateType) => ({
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile
 })
+
+
+let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
 export default connect(mapStateToProps, {setUserProfile})(ProfileContainer);
 
@@ -34,8 +42,12 @@ type MapStateToPropsType = {
     profile: ProfileType | null
 }
 type MapDispatchToPropsType = {
-    // toggleIsFetching: (isFetching: boolean) => void
-    // setUsers: (users: Array<UserType>) => void
-    // setTotalUsersCount: (isFetching: boolean) => void
     setUserProfile: (profile: ProfileType | null) => void
 }
+
+type PathParamsType = {
+    userId?: string
+}
+
+type CommonProfileContainerPropsType = RouteComponentProps<PathParamsType>  & ProfileContainerPropsType
+
