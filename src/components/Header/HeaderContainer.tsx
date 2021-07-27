@@ -4,7 +4,8 @@ import React, {Component} from 'react';
 import {setAuthUserData} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import { Header } from './Header';
+import Header from './Header';
+
 
 
 type MapDispatchToPropsType = {
