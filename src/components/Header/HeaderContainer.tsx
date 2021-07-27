@@ -18,8 +18,6 @@ type MapStateToPropsType = {
 
 export type HeaderContainerPropsType = MapDispatchToPropsType & MapStateToPropsType
 
-
-
 class HeaderContainer extends Component<HeaderContainerPropsType> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`,
