@@ -1,4 +1,6 @@
+import { Dispatch } from "redux";
 import {v1} from "uuid";
+import {usersAPI} from "../api/api";
 
 
 let initialState = {
@@ -42,10 +44,18 @@ export const updateNewPostTextAC = (text: string) => ({ //?поменяла на
     type: UPDATE_NEW_POST_TEXT,
     newText: text
 }) as const
-export default profileReducer;
+
 
 export const setUserProfile = (profile:ProfileType|null) => ({type: SET_USER_PROFILE, profile}as const)
 
+//thunk creators
+export const getUserProfile = (id: string) => (dispatch:Dispatch) => {
+    usersAPI.getProfile(id).then(response => {
+        dispatch(setUserProfile(response.data))
+    })
+
+}
+export default profileReducer;
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";

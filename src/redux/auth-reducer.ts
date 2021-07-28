@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../api/api";
+
 let initialState = {
     id: null as null|number,
     email: null as null|string,
@@ -19,23 +22,32 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
             return state;
     }
 }
+//actions
 export const setAuthUserData = (data:AuthPropsType) => ({type: SET_USER_DATA, data} as const)
 
+//thunk creators
+export const getAuthUserData = () => (dispatch: Dispatch) => {
+    authAPI.me()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(response.data.data))
+            }
+        })
+}
 
-type ActionsTypes = ReturnType<typeof setAuthUserData>
 
 export default authReducer;
 
 //types
+export type InitialStateType = typeof initialState
+const SET_USER_DATA = "SET_USER_DATA";
 export type AuthPropsType = {
     id: number,
     email: string,
     login: string,
     isAuth: boolean
 }
+type ActionsTypes = ReturnType<typeof setAuthUserData>
 
-export type InitialStateType = typeof initialState
-
-const SET_USER_DATA = "SET_USER_DATA";
 
 

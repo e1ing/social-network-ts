@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {AppStateType} from "../../redux/redux-store";
 import {
-    followSuccess,
+    follow,
     getUsers,
     setCurrentPage,
-    toggleFollowingProgress,
+    toggleFollowingProgress, unfollow,
     unfollowSuccess,
     UserType
 } from "../../redux/users-reducer";
@@ -54,7 +54,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 export default connect(mapStateToProps, {
-    follow: followSuccess, unfollow: unfollowSuccess, setCurrentPage, toggleFollowingProgress, getUsers
+    follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers
 })(UsersContainer);
 
 //types
@@ -68,12 +68,9 @@ type MapStateToPropsType = {
     followingInProgress: Array<number>
 }
 type MapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (users: Array<UserType>) => void
+    follow: any
+    unfollow: any
     setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
     toggleFollowingProgress: (isFetching: boolean, id: number) => void
-    getUser: any
+    getUsers: any
 }

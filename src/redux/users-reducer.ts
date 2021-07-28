@@ -72,7 +72,6 @@ export const getUsers =(currentPage: number, pageSize: number) => {
     })
 }}
 
-
 export const follow =(id: number, isFetching: boolean) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleFollowingProgress(true, id));
@@ -92,12 +91,17 @@ export const unfollow =(id: number, isFetching: boolean) => {
         usersAPI.unfollow(id)
             .then(response => {
                 if (response.data.resultCode === 0) {
-                    dispatch(followSuccess(id))
+                    dispatch(unfollowSuccess(id))
                 }
                 dispatch(toggleFollowingProgress(false, id))
             })
     }
 }
+
+
+export default usersReducer;
+
+//types
 
 type ActionsTypes = ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
@@ -106,11 +110,6 @@ type ActionsTypes = ReturnType<typeof followSuccess>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleFollowingProgress>
-
-export default usersReducer;
-
-//types
-
 
 export type UserType = {
     id: number,

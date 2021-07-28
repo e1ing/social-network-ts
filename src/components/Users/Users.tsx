@@ -3,12 +3,10 @@ import userPhoto from "../../asserts/images/user.jpg";
 import React, {FC} from "react";
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import { usersAPI } from "../../api/api";
 
 
 const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount,
-                                       pageSize, onPageChanged, currentPage, toggleFollowingProgress,
+                                       pageSize, onPageChanged, currentPage,
                                        followingInProgress}) => {
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize)
@@ -49,7 +47,7 @@ const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount,
                                         onClick={() => {unfollow(u.id)}}> Unfollow </button>
                                 :
                                 <button disabled={followingInProgress
-                                    .some(id=>id===u.id)} onClick={() => {unfollow(u.id)}}>Follow </button>
+                                    .some(id=>id===u.id)} onClick={() => {follow(u.id)}}>Follow</button>
                             }
 
                         </div>
@@ -74,6 +72,5 @@ export type UsersPropsType = {
     pageSize: number
     onPageChanged:(pageNumber: number) => void
     currentPage: number
-    toggleFollowingProgress: (isFetching: boolean, id:number) => void
     followingInProgress: Array<number>
 }
