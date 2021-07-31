@@ -22,10 +22,10 @@ const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount,
         return <div>
             <div>
                 {pages.map(p => {
-                    return <span onClick={(e) => {
-                        onPageChanged(p)
-                    }}
-                                 className={currentPage === p ? styles.selectedPage : ""}>
+
+                    return <span className={currentPage === p ? styles.selectedPage : ""}
+                                 onClick={(e) => {onPageChanged(p)}}
+                                 >
                    {p}</span>
                 })}
 
