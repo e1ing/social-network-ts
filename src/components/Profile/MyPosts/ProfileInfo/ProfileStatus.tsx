@@ -21,6 +21,10 @@ class ProfileStatus extends Component<ProfileStatusPropsType> {
         this.setState({status: e.currentTarget.value})
     }
 
+    componentDidUpdate() {
+        console.log("fffff")
+    }
+
     render() {
         return (
             <div>
