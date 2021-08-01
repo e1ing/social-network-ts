@@ -3,10 +3,8 @@ import {ProfileType} from "../../../../redux/profile-reducer";
 import {Preloader} from "../../../common/Preloader/Preloader";
 import ProfileStatus from './ProfileStatus';
 
-type ProfileInfoPropsType = {
-    profile: ProfileType | null
-}
-const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
+
+const ProfileInfo: FC<ProfileInfoPropsType> = ({profile,status, updateStatus}) => {
     if (!profile){
         return <Preloader/>
     }
@@ -17,8 +15,14 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
         </div>
         <div className="classes.descriptionBlock">
             <img src={profile.photos.large}></img>
-            <ProfileStatus status={"hi"}/>
+            <ProfileStatus status={status} updateStatus={updateStatus}/>
         </div>
     </div>
 }
 export default ProfileInfo;
+
+type ProfileInfoPropsType = {
+    profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
+}
