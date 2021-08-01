@@ -21,8 +21,10 @@ class ProfileStatus extends Component<ProfileStatusPropsType> {
         this.setState({status: e.currentTarget.value})
     }
 
-    componentDidUpdate() {
-        console.log("fffff")
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>) {
+       if(prevProps.status!==this.props.status) {
+           this.setState({status: this.props.status})
+       }
     }
 
     render() {
