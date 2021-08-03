@@ -7,32 +7,32 @@ const instance = axios.create({
 });
 
 export const usersAPI = {
-   getUsers (currentPage: number, pageSize: number) {
+    getUsers(currentPage: number, pageSize: number) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then (response => {
+            .then(response => {
                 return response.data
             })
     },
-    follow(id:number){
+    follow(id: number) {
         return instance.post(`follow/${id}`)
     },
-    unfollow(id:number){
+    unfollow(id: number) {
         return instance.delete(`follow/${id}`)
     },
-    getProfile(id: string){
-       console.warn("Obsolete method. Use profileAPI object")
-       return profileAPI.getProfile(id)
+    getProfile(id: string) {
+        console.warn("Obsolete method. Use profileAPI object")
+        return profileAPI.getProfile(id)
     }
 }
 
 export const profileAPI = {
-    getProfile(id: string){
+    getProfile(id: string) {
         return instance.get(`profile/` + id)
     },
-    getStatus(id: string){
+    getStatus(id: string) {
         return instance.get(`profile/status/` + id)
     },
-    updateStatus(status:string){
+    updateStatus(status: string) {
         return instance.put(`profile/status/`, {status})
     }
 }
@@ -40,5 +40,16 @@ export const profileAPI = {
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
+    },
+    login(data: ResponseType) {
+        return instance.post<ResponseType>("auth/login", data)
     }
+}
+
+//types
+type ResponseType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
 }
