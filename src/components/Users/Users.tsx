@@ -5,9 +5,11 @@ import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 
 
-const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount,
+const Users: FC<UsersPropsType> = ({
+                                       users, unfollow, follow, totalUsersCount,
                                        pageSize, onPageChanged, currentPage,
-                                       followingInProgress}) => {
+                                       followingInProgress
+                                   }) => {
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize)
     console.log('pages', pagesCount)
@@ -19,50 +21,66 @@ const Users: FC<UsersPropsType> = ({users,unfollow, follow, totalUsersCount,
         pages.push(i)
     }
 
-        return <div>
-            <div>
-                {pages.map(p => {
+    return <div>
 
-                    return <span className={currentPage === p ? styles.selectedPage : ""}
-                                 onClick={(e) => {onPageChanged(p)}}
-                                 >
+        <div>
+            <UsersSearchForm/>
+        </div>
+        <div>
+            {pages.map(p => {
+
+                return <span className={currentPage === p ? styles.selectedPage : ""}
+                             onClick={(e) => {
+                                 onPageChanged(p)
+                             }}
+                >
                    {p}</span>
-                })}
+            })}
 
-            </div>
-            {
-              users.map(u => <div key={u.id}>
+        </div>
+        {
+            users.map(u => <div key={u.id}>
                     <span>
                         <div>
                               <NavLink to={"/profile/"}>
                             <img src={u.photos.small !== null ? u.photos.small : userPhoto}
-                                   className={styles.userPhoto}/>
+                                 className={styles.userPhoto}/>
                               </NavLink>
                               </div>
                         <div>
                             {u.followed
                                 ?
                                 <button disabled={followingInProgress
-                                    .some(id=>id===u.id)}
-                                        onClick={() => {unfollow(u.id)}}> Unfollow </button>
+                                    .some(id => id === u.id)}
+                                        onClick={() => {
+                                            unfollow(u.id)
+                                        }}> Unfollow </button>
                                 :
                                 <button disabled={followingInProgress
-                                    .some(id=>id===u.id)} onClick={() => {follow(u.id)}}>Follow</button>
+                                    .some(id => id === u.id)} onClick={() => {
+                                    follow(u.id)
+                                }}>Follow</button>
                             }
 
                         </div>
                     </span>
-                    <span>
+                <span>
     <div>{u.name}</div>
     <div>{u.status}</div>
 </span>
 
-                </div>)
-            }
-        </div>
+            </div>)
+        }
+    </div>
 
 }
-    export default Users;
+
+const UsersSearchForm = () => {
+
+}
+
+
+export default Users;
 
 export type UsersPropsType = {
     users: Array<UserType>
@@ -70,7 +88,7 @@ export type UsersPropsType = {
     unfollow: (userId: number) => void
     totalUsersCount: number
     pageSize: number
-    onPageChanged:(pageNumber: number) => void
+    onPageChanged: (pageNumber: number) => void
     currentPage: number
     followingInProgress: Array<number>
 }

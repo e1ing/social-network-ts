@@ -3,7 +3,9 @@ import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {InitialStateType} from "../../redux/dialogs-reducer";
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import { Field } from 'formik/dist/Field';
+import {Form, Formik, useFormik} from 'formik';
 
 type DialogsPropsType = {
     updateNewMessageBody: (body: string) => void
@@ -37,7 +39,11 @@ const Dialogs: FC<DialogsPropsType> = ({
         updateNewMessageBody(body)
     }
 
-    if(!isAuth) return <Redirect to={"/login"}></Redirect>;
+    let addNewMessage = (values: string) => {
+        alert(values.newMessageBody)
+    }
+
+    if (!isAuth) return <Redirect to={"/login"}></Redirect>;
 
     return (
         <div className={classes.dialogs}>
@@ -49,16 +55,7 @@ const Dialogs: FC<DialogsPropsType> = ({
             <div className={classes.messages}>
                 <div>{messagesElements}</div>
                 <div>
-                    <div>
-                                <textarea value={newMessageBody}
-                                          onChange={onNewMessageChange}
-                                          placeholder="Enter message">
-                            </textarea>
-                    </div>
-
-                    <div>
-                        <button onClick={onSendMessageClick}> Send</button>
-                    </div>
+                    <AddMessageForm onSubmit={addNewMessage}/>
                 </div>
 
             </div>
@@ -70,3 +67,32 @@ const Dialogs: FC<DialogsPropsType> = ({
 }
 
 export default Dialogs;
+
+
+const AddMessageForm = () => {
+
+    return (
+
+        <Formik
+            initialValues={{ email: '', color: 'red', firstName: '', lastName: '' }}
+            onSubmit={(values, actions) => {
+                setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    actions.setSubmitting(false);
+                }, 1000);
+            }}
+        >
+
+        <Form >
+            <div>
+                <Field type="textarea" name="newMessageBody" placeholder="Enter message" />
+            </div>
+            <div>
+                <button> Send</button>
+            </div>
+        </Form>
+        </Formik>
+    )
+}
+
+

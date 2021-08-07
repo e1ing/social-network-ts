@@ -32,7 +32,6 @@ export const LoginForm = () => {
     return <form onSubmit={formik.handleSubmit}>
         <div>
             <input placeholder={"Login"}  {...formik.getFieldProps("login")}/>
-
         </div>
         {formik.errors.login && formik.touched.login ? <div>{formik.errors.login}</div> : null}
         <div>
