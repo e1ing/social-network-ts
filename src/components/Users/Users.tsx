@@ -3,6 +3,7 @@ import userPhoto from "../../asserts/images/user.jpg";
 import React, {FC} from "react";
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import {UsersSearchForm} from "./UsersSearchForm";
 
 
 const Users: FC<UsersPropsType> = ({
@@ -26,6 +27,7 @@ const Users: FC<UsersPropsType> = ({
         <div>
             <UsersSearchForm/>
         </div>
+
         <div>
             {pages.map(p => {
 
@@ -74,11 +76,6 @@ const Users: FC<UsersPropsType> = ({
     </div>
 
 }
-
-const UsersSearchForm = () => {
-
-}
-
 
 export default Users;
 

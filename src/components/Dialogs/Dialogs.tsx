@@ -4,8 +4,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {InitialStateType} from "../../redux/dialogs-reducer";
 import {Redirect} from 'react-router-dom';
-import { Field } from 'formik/dist/Field';
-import {Form, Formik, useFormik} from 'formik';
+import {Field, Form, Formik} from 'formik';
 
 type DialogsPropsType = {
     updateNewMessageBody: (body: string) => void
@@ -39,9 +38,9 @@ const Dialogs: FC<DialogsPropsType> = ({
         updateNewMessageBody(body)
     }
 
-    let addNewMessage = (values: string) => {
+   /* let addNewMessage = (values: string) => {
         alert(values.newMessageBody)
-    }
+    }*/
 
     if (!isAuth) return <Redirect to={"/login"}></Redirect>;
 
@@ -55,7 +54,7 @@ const Dialogs: FC<DialogsPropsType> = ({
             <div className={classes.messages}>
                 <div>{messagesElements}</div>
                 <div>
-                    <AddMessageForm onSubmit={addNewMessage}/>
+                    {/*<AddMessageForm/>*/}
                 </div>
 
             </div>
@@ -69,7 +68,7 @@ const Dialogs: FC<DialogsPropsType> = ({
 export default Dialogs;
 
 
-const AddMessageForm = () => {
+/*const AddMessageForm = () => {
 
     return (
 
@@ -93,6 +92,6 @@ const AddMessageForm = () => {
         </Form>
         </Formik>
     )
-}
+}*/
 
 

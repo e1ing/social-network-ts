@@ -39,17 +39,24 @@ export const profileAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`)
+        return instance.get(`auth/me`);
     },
-    login(data: ResponseType) {
-        return instance.post<ResponseType>("auth/login", data)
+    // login(data: ResponseType) {
+    login(email: string, password: string, rememberMe: boolean) {
+        const data = { email, password, rememberMe }
+        console.log('tut', data)
+        return instance.post("auth/login", data);
+    },
+    logout() {
+        return instance.delete("auth/login");
     }
 }
 
 //types
+/*
 type ResponseType = {
     email: string
     password: string
     rememberMe: boolean
     captcha?: string
-}
+}*/
