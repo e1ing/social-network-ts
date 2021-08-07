@@ -18,6 +18,7 @@ export const Login = ({isAuth}: LoginType) => {
 }
 
 
+
 const mapStateToProps = (state: AppStateType): MapStateToPropsType =>  ({
     isAuth: state.auth.isAuth
 })
