@@ -3,15 +3,7 @@ import {v1} from "uuid";
 
 const SEND_MESSAGE = "SEND-MESSAGE";
 
-export type DialogType = {
-    id: string
-    name: string
-}
 
-export type MessageType = {
-    id: string
-    message: string
-}
 
 
 let initialState = {
@@ -51,5 +43,18 @@ type ActionsTypes = ReturnType<typeof sendMessageAC>
 export const sendMessageAC = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody}) as const
 
 
+
+//types
+export type DialogType = {
+    id: string
+    name: string
+    avatar?: string
+}
+export type MessageType = {
+    id: string
+    message: string
+}
+
+export type InitialStatType = typeof initialState
 
 export default dialogsReducer;

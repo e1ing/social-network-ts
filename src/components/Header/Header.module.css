@@ -7,8 +7,8 @@
 }
 
 .loginBlock{
-    float: right;
+    float: right
 }
-.loginBlock a{
-    color: white
+.loginBlock s {
+    color: wheat;
 }

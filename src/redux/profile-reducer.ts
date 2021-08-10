@@ -1,55 +1,10 @@
+import { Dispatch } from "redux";
 import {v1} from "uuid";
-import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_STATUS = "SET_STATUS";
-
-
-export type ProfilePageType = {
-    posts: Array<PostType>
-    newPostText: string
-}
-export type ProfileCallbacksType = {
-    addPostCallback: () => void
-    updateNewPostText: (postText: string) => void
-}
-
-export type PostType = {
-    id: string
-    message: string
-    likesCount: number
-}
-
-type ProfileContactsType = {
-    facebook: string,
-    website: string,
-    vk: string,
-    twitter: string,
-    instagram: string,
-    youtube: string,
-    github: string,
-    mainLink: string,
-}
-
-type ProfilePhotosType = {
-    small: string,
-    large: string,
-}
-
-export type ProfileType = {
-    userId: number,
-    aboutMe: string,
-    contacts: ProfileContactsType,
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    photos: ProfilePhotosType,
-
-}
 
 let initialState = {
+    newPostText: "",
     posts: [
         {id: v1(), message: "Hi, how are you?", likesCount: 12},
         {id: v1(), message: "It's my first post", likesCount: 7},
@@ -60,7 +15,6 @@ let initialState = {
 };
 
 export type InitialStateType = typeof initialState
-type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof setUserProfile> | ReturnType<typeof setStatus>
 
 const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     let stateCopy = {...state, posts: [...state.posts]}
@@ -68,17 +22,15 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
         case ADD_POST:
             let newPost = {
                 id: v1(),
-                message: action.newMyPostText,
+                message: state.newPostText,
                 likesCount: 0
             };
-
+            return {...state, posts: [...state.posts, newPost]}
+            state.newPostText = '';
+        case UPDATE_NEW_POST_TEXT:
             return {
-                ...state,
-                posts: [
-                    ...state.posts, newPost
-                ],
+                ...state, newPostText: action.newText
             }
-
         case SET_USER_PROFILE:
             return {
                 ...state, profile: action.profile
@@ -91,30 +43,67 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
             return state;
     }
 }
-export const addPostAC = (newMyPostText: string) => ({type: ADD_POST, newMyPostText}) as const
 
-export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile}) as const
-export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
-    usersAPI.getProfile(userId).then(response => {
-        dispatch(setUserProfile(response.data));
+//action creators
+export const addPostAC = () => ({type: ADD_POST}) as const
+export const updateNewPostTextAC = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text}) as const
+export const setStatus = (status: string) => ({type: SET_STATUS, status} as const)
+export const setUserProfile = (profile:ProfileType|null) => ({type: SET_USER_PROFILE, profile}as const)
+
+//thunk creators
+export const getUserProfile = (id: string) => (dispatch:Dispatch) => {
+    profileAPI.getProfile(id).then(response => {
+        dispatch(setUserProfile(response.data))
     })
 }
 
-export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
-export const getStatus = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId).then(response => {
-        dispatch(setStatus(response.statusText));
-    })
+export const getStatus = (id: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(id)
+        .then(response => {
+            dispatch(setStatus(response.data))
+        })
 }
+
 export const updateStatus = (status: string) => (dispatch: Dispatch) => {
-    debugger
     profileAPI.updateStatus(status)
         .then(response => {
-        debugger
-        if (response.data.resultCode === 0) {
-            dispatch(setStatus(status));
-        }
-    })
+            if(response.data.resultCode===0) {
+                dispatch(setStatus(status))
+            }
+        })
 }
 
 export default profileReducer;
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_STATUS = "SET_STATUS";
+
+export type PostType = {
+    id: string
+    message: string
+    likesCount: number
+}
+
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ProfileContactsType
+    photos: {small: string, large: string}
+}
+
+export type ProfileContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile> |ReturnType<typeof setStatus>
