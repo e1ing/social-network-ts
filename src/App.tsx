@@ -24,7 +24,6 @@ class App extends Component <AppType> {
            return <Preloader/>
         }
         return (
-            <BrowserRouter>
                 <div className='app-wrapper'>
                     <HeaderContainer/>
                     <Navbar/>
@@ -35,7 +34,7 @@ class App extends Component <AppType> {
                         <Route path="/login" render={() => <Login/>}/>
                     </div>                                            
                 </div>
-            </BrowserRouter>)
+           )
     }
 }
 
@@ -43,7 +42,7 @@ const mupStateToProps = (state: AppStateType):MapStateToPropsType => ({
     initialized: state.app.initialized
 })
 export default compose(withRouter,
-    connect(mupStateToProps, {initializeApp}))(App);
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType >(mupStateToProps, {initializeApp}))(App);
 
 //types
 type MapStateToPropsType = {
