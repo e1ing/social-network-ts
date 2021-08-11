@@ -11,7 +11,7 @@ const Header: FC<HeaderContainerPropsType> = ({isAuth, login, logout}) => {
         <div className={classes.loginBlock }>
             {isAuth
                 ? <div>{login} - <button onClick={logout}>Log out</button></div>
-                : <NavLink to={"/login"}>Login</NavLink>
+                : <NavLink to={"/Login"}>Login</NavLink>
             }
         </div>
     </header>;

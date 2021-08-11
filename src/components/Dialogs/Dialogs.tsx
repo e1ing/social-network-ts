@@ -42,7 +42,7 @@ const Dialogs: FC<DialogsPropsType> = ({
         alert(values.newMessageBody)
     }*/
 
-    if (!isAuth) return <Redirect to={"/login"}></Redirect>;
+    if (!isAuth) return <Redirect to={"/Login"}></Redirect>;
 
     return (
         <div className={classes.dialogs}>

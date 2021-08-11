@@ -6,12 +6,12 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from './components/Login/Login';
 import {connect} from "react-redux";
 import {compose} from 'redux';
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
 import {Preloader} from "./components/common/Preloader/Preloader";
+import {Login} from "./components/Login/Login";
 
 
 class App extends Component <AppType> {
@@ -24,6 +24,7 @@ class App extends Component <AppType> {
            return <Preloader/>
         }
         return (
+            <BrowserRouter>
                 <div className='app-wrapper'>
                     <HeaderContainer/>
                     <Navbar/>
@@ -32,9 +33,9 @@ class App extends Component <AppType> {
                         <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                         <Route path="/users" render={() => <UsersContainer/>}/>
                         <Route path="/login" render={() => <Login/>}/>
-                    </div>                                            
+                    </div>
                 </div>
-           )
+            </BrowserRouter>)
     }
 }
 
@@ -42,7 +43,7 @@ const mupStateToProps = (state: AppStateType):MapStateToPropsType => ({
     initialized: state.app.initialized
 })
 export default compose(withRouter,
-    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType >(mupStateToProps, {initializeApp}))(App);
+    connect(mupStateToProps, {initializeApp}))(App);
 
 //types
 type MapStateToPropsType = {
