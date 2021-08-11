@@ -14,7 +14,7 @@ class ProfileContainer extends Component<CommonProfileContainerPropsType> {
         if (!id) {
             id = this.props.authorizedUserId ? this.props.authorizedUserId : 17186 ;
             if(!id){
-                this.props.history.push("/Login")
+                this.props.history.push("/login")
             }
         }
         this.props.getUserProfile(id)
