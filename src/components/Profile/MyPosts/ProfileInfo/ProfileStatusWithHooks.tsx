@@ -1,13 +1,17 @@
+
 import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+
 
 
 const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = ({status, updateStatus}) => {
 
     const [editMode, setEditMode] = useState(false)
     const [statusLoc, setStatusLoc] = useState(status)
+
     useEffect(() => {
         setStatusLoc(status)
     }, [])
+
 
     const activateEditMode = () => {
         setEditMode(true);
