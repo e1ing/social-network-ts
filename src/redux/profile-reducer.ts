@@ -53,6 +53,7 @@ export const setUserProfile = (profile:ProfileType|null) => ({type: SET_USER_PRO
 //thunk creators
 export const getUserProfile = (id: string) => (dispatch:Dispatch) => {
     profileAPI.getProfile(id).then(response => {
+        console.log(response.data);
         dispatch(setUserProfile(response.data))
     })
 }

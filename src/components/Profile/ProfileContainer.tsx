@@ -10,9 +10,10 @@ import {compose} from 'redux';
 
 class ProfileContainer extends Component<CommonProfileContainerPropsType> {
     componentDidMount() {
-        let id = Number(this.props.match.params.id)
+        console.log(this.props.match.params);
+        let id = Number(this.props.match.params.userId)
         if (!id) {
-            id = this.props.authorizedUserId ? this.props.authorizedUserId : 17186 ;
+            id = this.props.authorizedUserId /*? this.props.authorizedUserId : 17186 ;*/
             if(!id){
                 this.props.history.push("/login")
             }
@@ -22,7 +23,6 @@ class ProfileContainer extends Component<CommonProfileContainerPropsType> {
     }
 
     render() {
-
         return <div>
             <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
         </div>
@@ -56,7 +56,7 @@ type MapDispatchToPropsType = {
 }
 
 type PathParamsType = {
-    id?: string
+    userId?: string
 }
 
 type CommonProfileContainerPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
