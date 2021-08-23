@@ -1,11 +1,11 @@
 import {useFormik} from "formik";
-import React from "react";
+import React, { FC } from "react";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 
-export const Login: React.FC<LoginType> = ({isAuth, login}) => {
+export const Login: FC<LoginType> = ({isAuth, login}) => {
 
     if (isAuth){
         return <Redirect to={"/profile"}/>

@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
-import {connect, Provider} from "react-redux";
+import {connect} from "react-redux";
 import {compose} from 'redux';
 import {initializeApp} from "./redux/app-reducer";
-import store, {AppStateType} from "./redux/redux-store";
+import {AppStateType} from "./redux/redux-store";
 import {Preloader} from "./components/common/Preloader/Preloader";
 import {getAuthUserData} from "./redux/auth-reducer";
 
@@ -26,8 +26,6 @@ class App extends Component <AppType> {
             return <Preloader/>
         }
         return (
-            <BrowserRouter>
-                <Provider store={store}>
                     <div className='app-wrapper'>
                         <HeaderContainer/>
                         <Navbar/>
@@ -38,8 +36,6 @@ class App extends Component <AppType> {
                             <Route path="/login" render={() => <Login/>}/>
                         </div>
                     </div>
-                </Provider>
-            </BrowserRouter>
         )
     }
 }

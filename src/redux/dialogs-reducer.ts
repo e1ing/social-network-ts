@@ -1,9 +1,17 @@
 import {v1} from "uuid";
 
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
-const SEND_MESSAGE = "SEND-MESSAGE";
-
-
+export type DialogType = {
+    id: string
+    name: string
+    avatar?: string
+}
+export type MessageType = {
+    id: string
+    message: string
+}
+export type InitialStatType = typeof initialState
+export type InitialStateType = typeof initialState
+type ActionsTypes = ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
 
 let initialState = {
     dialogs: [
@@ -23,14 +31,12 @@ let initialState = {
     newMessageBody: "" as string
 }
 
-export type InitialStateType = typeof initialState
-type ActionsTypes = ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
 
 const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
+        case  "dialogs/UPDATE-NEW-MESSAGE-BODY":
             return {...state, newMessageBody: action.newText}
-        case SEND_MESSAGE:
+        case "dialogs/SEND-MESSAGE":
             let body = state.newMessageBody;
             return {
                 ...state,
@@ -42,25 +48,7 @@ const dialogsReducer = (state: InitialStateType = initialState, action: ActionsT
     }
 }
 
-
-export const sendMessageAC = () => ({type: SEND_MESSAGE}) as const
-
-export const updateNewMessageBodyAC = (body: string) => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    newText: body
-}) as const
-
-//types
-export type DialogType = {
-    id: string
-    name: string
-    avatar?: string
-}
-export type MessageType = {
-    id: string
-    message: string
-}
-
-export type InitialStatType = typeof initialState
+export const sendMessageAC = () => ({type: "dialogs/SEND-MESSAGE"}) as const
+export const updateNewMessageBodyAC = (body: string) => ({type: "dialogs/UPDATE-NEW-MESSAGE-BODY",newText: body}) as const
 
 export default dialogsReducer;

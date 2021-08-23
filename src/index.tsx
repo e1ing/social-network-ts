@@ -4,11 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store, {RootReduxStateType} from "./redux/redux-store";
+import {BrowserRouter} from "react-router-dom";
+import { Provider } from 'react-redux';
 
 
 let rerenderEntireTree = (state: RootReduxStateType) => {
     ReactDOM.render(
-                <App/>,
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>,
         document.getElementById('root')
     );
 }

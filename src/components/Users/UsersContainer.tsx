@@ -14,6 +14,22 @@ import {
     getTotalUsersCount
 } from "../../redux/users-selectors";
 
+export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
+type MapStateToPropsType = {
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: Array<number>
+}
+type MapDispatchToPropsType = {
+    follow: any
+    unfollow: any
+    setCurrentPage: (currentPage: number) => void
+    toggleFollowingProgress: (isFetching: boolean, id: number) => void
+    getUsers: any
+}
 
 class UsersContainer extends Component<UsersPropsType, {}> {
 
@@ -71,20 +87,3 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers: requestUsers
 }))(UsersContainer)
 
-//types
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
-type MapStateToPropsType = {
-    users: Array<UserType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: Array<number>
-}
-type MapDispatchToPropsType = {
-    follow: any
-    unfollow: any
-    setCurrentPage: (currentPage: number) => void
-    toggleFollowingProgress: (isFetching: boolean, id: number) => void
-    getUsers: any
-}
