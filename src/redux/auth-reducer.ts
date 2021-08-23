@@ -30,7 +30,9 @@ export const setAuthUserData = (id: number, email: string, login: string, isAuth
     type: SET_USER_DATA, payload: {id, email, login, isAuth}} as const)
 
 //thunk creators
+
 export const getAuthUserData = () => (dispatch: Dispatch<AuthActionsTypes>) => {
+
    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
@@ -42,6 +44,7 @@ export const getAuthUserData = () => (dispatch: Dispatch<AuthActionsTypes>) => {
 
 
 export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: ThunkDispatch<AppStateType, unknown, AuthActionsTypes>) => {
+   debugger
     authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {

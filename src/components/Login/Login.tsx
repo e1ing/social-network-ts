@@ -5,7 +5,7 @@ import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 
-export const Login = ({isAuth}) => {
+export const Login: React.FC<LoginType> = ({isAuth, login}) => {
 
     if (isAuth){
         return <Redirect to={"/profile"}/>
@@ -13,7 +13,7 @@ export const Login = ({isAuth}) => {
 
     return <div>
         <h1> Log in </h1>
-        <LoginForm />
+        <LoginForm login={login}/>
     </div>
 }
 
@@ -37,7 +37,10 @@ type MapDispatchToPropsType = {
     login: (email:string, password: string, rememberMe: boolean) => void
 }
 
-export const LoginForm = () => {
+type PrType = {
+    login: (email:string, password: string, rememberMe: boolean) => void
+}
+export const LoginForm = (props:PrType ) => {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -53,7 +56,7 @@ export const LoginForm = () => {
             }
         },
         onSubmit: (formData) => {
-            login(formData.email, formData.password, formData.rememberMe)
+            props.login(formData.email, formData.password, formData.rememberMe)
         },
     });
 

@@ -1,30 +1,32 @@
 import React, {Component} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from './components/Login/Login';
 import {connect} from "react-redux";
 import {compose} from 'redux';
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
-import { Preloader } from './components/common/Preloader/Preloader';
-import Login from './components/login/Login';
-
+import {Preloader} from "./components/common/Preloader/Preloader";
+import {getAuthUserData} from "./redux/auth-reducer";
 
 
 class App extends Component <AppType> {
     componentDidMount() {
-        this.props.initializeApp();
+     this.props.initializeApp();
     }
+
 
     render() {
         if(!this.props.initialized){
-           return <Preloader/>
+            return <Preloader/>
         }
         return (
+            <BrowserRouter>
                 <div className='app-wrapper'>
                     <HeaderContainer/>
                     <Navbar/>
@@ -35,21 +37,22 @@ class App extends Component <AppType> {
                         <Route path="/login" render={() => <Login/>}/>
                     </div>
                 </div>
-           )
+            </BrowserRouter>)
     }
 }
 
-const mapStateToProps = (state: AppStateType):MapStateToPropsType => ({
+const mupStateToProps = (state: AppStateType):MapStateToPropsType => ({
     initialized: state.app.initialized
 })
 export default compose(withRouter,
-    connect(mapStateToProps, {initializeApp}))(App);
+    connect(mupStateToProps, {initializeApp, getAuthUserData}))(App);
 
 //types
 type MapStateToPropsType = {
     initialized: boolean
 }
 type MapDispatchToPropsType = {
+    getAuthUserData: () => void
     initializeApp: () => void
 }
-type AppTypeP = MapStateToPropsType & MapDispatchToPropsType;
+type AppType = MapStateToPropsType & MapDispatchToPropsType
