@@ -12,19 +12,19 @@ let state = {
     status: ""
 };
 
-test('new post should be added', () => {
+it('new post should be added', () => {
     let action = addPostAC("it-kamasutra.com")
     let newState = profileReducer(state, action);
     expect(newState.posts.length).toBe(5);
 });
 
-test('message of new post should be correct', () => {
+it('message of new post should be correct', () => {
     let action = addPostAC("it-kamasutra.com")
     let newState = profileReducer(state, action);
     expect(newState.posts[4].message).toBe("it-kamasutra.com");
 });
 
-test('after deleting length of messages should be dacrement', () => {
+it('after deleting length of messages should be dacrement', () => {
     let action = deletePost("1")
     let newState = profileReducer(state, action);
     expect(newState.posts.length).toBe(4);

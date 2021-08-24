@@ -1,21 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import {SamuraiTSApp} from './App';
 import reportWebVitals from './reportWebVitals';
-import store, {RootReduxStateType} from "./redux/redux-store";
-import {BrowserRouter} from "react-router-dom";
-import { Provider } from 'react-redux';
+import store, {RootReduxStateType} from './redux/redux-store';
 
 
 let rerenderEntireTree = (state: RootReduxStateType) => {
     ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </BrowserRouter>,
-        document.getElementById('root')
+                <SamuraiTSApp/>,
+        document.getElementById("root")
     );
 }
 rerenderEntireTree(store.getState())

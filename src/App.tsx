@@ -1,25 +1,33 @@
 import React, {Component} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from 'redux';
 import {initializeApp} from "./redux/app-reducer";
-import {AppStateType} from "./redux/redux-store";
+import store, {AppStateType} from "./redux/redux-store";
 import {Preloader} from "./components/common/Preloader/Preloader";
 import {getAuthUserData} from "./redux/auth-reducer";
 
+//types
+type MapStateToPropsType = {
+    initialized: boolean
+}
+type MapDispatchToPropsType = {
+    getAuthUserData: () => void
+    initializeApp: () => void
+}
+type AppType = MapStateToPropsType & MapDispatchToPropsType
 
 class App extends Component <AppType> {
     componentDidMount() {
         this.props.initializeApp();
     }
-
 
     render() {
         if (!this.props.initialized) {
@@ -43,15 +51,15 @@ class App extends Component <AppType> {
 const mupStateToProps = (state: AppStateType): MapStateToPropsType => ({
     initialized: state.app.initialized
 })
-export default compose(withRouter,
+let AppContainer = compose(withRouter,
     connect(mupStateToProps, {initializeApp, getAuthUserData}))(App);
 
-//types
-type MapStateToPropsType = {
-    initialized: boolean
+export let SamuraiTSApp = () => {
+    return (
+    <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </BrowserRouter>
+    )
 }
-type MapDispatchToPropsType = {
-    getAuthUserData: () => void
-    initializeApp: () => void
-}
-type AppType = MapStateToPropsType & MapDispatchToPropsType
