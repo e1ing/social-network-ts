@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import usersReducer from "./users-reducer";
@@ -15,12 +15,19 @@ let rootReducer = combineReducers({
     app: appReducer
 });
 
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+
 export type AppStateType = ReturnType<typeof rootReducer> //state of application
 export  type RootReduxStateType = ReturnType<typeof rootReducer>
 
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-
 export type ReduxStoreType = typeof store
 // @ts-ignore
-window.store=store;
+window._store_=store;
 export default store;
