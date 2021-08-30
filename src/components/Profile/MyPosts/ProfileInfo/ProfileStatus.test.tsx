@@ -43,5 +43,12 @@ expect(span.children[0]).toBe( "it-kamasutra.com");
          expect(input.props.value).toBe("it-kamasutra.com")
      });
 
+     test ("callback  should be called", () => {
+         const mockCallback = jest.fn();
+         const component = create (<ProfileStatus stattus = "it-kamasutra.com", updateStatus={mockCallback}/>)
+         const instance = component.getInstance();
+         instance.deactivateRditMode();
+        expect(mockCallback.mock.calls).toBe(1)
+     })
 
  })
