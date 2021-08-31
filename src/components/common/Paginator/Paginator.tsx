@@ -1,5 +1,6 @@
-import styles from "Paginator.module.css";
+import styles from "./Paginator.module.css";
 import React, {FC, useState} from "react";
+import cn from 'classnames'
 
 export type PaginatorPropsType = {
     totalItemsCount: number

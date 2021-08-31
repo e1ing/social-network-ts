@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import {UserType} from "../../redux/users-reducer";
-import Paginator from "../common/Paginator/Paginator";
+import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User";
 
 export type UsersPropsType = {
@@ -33,8 +33,8 @@ const Users: FC<UsersPropsType> = ({
     return <div>
         <Paginator currentPage={currentPage}
                    onPageChanged={onPageChanged}
-                   totalUsersCount={totalUsersCount}
-                   pageSize={pageSize}/>
+                   totalItemsCount={totalUsersCount}
+                   pageSize={pageSize} portionSize={pageSize}/>
 
         {users.map(u => <User user={u} key={ u.id}
                               followingInProgress={followingInProgress}
