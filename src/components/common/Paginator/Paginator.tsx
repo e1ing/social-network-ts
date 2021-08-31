@@ -1,46 +1,60 @@
-import styles from "../../Users/Users.module.css";
-import userPhoto from "../../../asserts/images/user.jpg";
-import React, {FC} from "react";
-import {UserType} from "../../../redux/users-reducer";
-import {NavLink} from "react-router-dom";
-import {UsersSearchForm} from "../../Users/UsersSearchForm";
+import styles from "Paginator.module.css";
+import React, {FC, useState} from "react";
 
 export type PaginatorPropsType = {
-    totalUsersCount: number
+    totalItemsCount: number
     pageSize: number
     onPageChanged: (pageNumber: number) => void
     currentPage: number
+    portionSize: number
 }
 
-const Paginator: FC<PaginatorPropsType> = ({totalUsersCount, pageSize, onPageChanged, currentPage}) => {
+export const Paginator: FC<PaginatorPropsType> = ({
+                                                      totalItemsCount, pageSize,
+                                                      onPageChanged, currentPage, portionSize
+                                                  }) => {
 
-    let pagesCount = Math.ceil(totalUsersCount / pageSize)
+    let pagesCount = Math.ceil(totalItemsCount / pageSize)
 
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
 
-    return <div>
-        <div>
-            <UsersSearchForm/>
-        </div>
+    let portionCount = Math.ceil(pagesCount / portionSize)
+    let [portionNumber, setPortionNumber] = useState(1)
+    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
+    let rightPortionPageNumber = portionNumber * portionSize;
 
-        <div>
-            {pages.map(p => {
 
-                return <span className={currentPage === p ? styles.selectedPage : ""}
-                             onClick={(e) => {
-                                 onPageChanged(p)
-                             }}>
-                   {p}</span>
-            })}
+    return <div className={styles.paginator}>
+        {
+            portionNumber > 1 &&
+            <button onClick={() => {
+                setPortionNumber(portionNumber - 1)
+            }}>PREV</button>
+        }
 
-        </div>
+        {
+            pages
+                .filter(p=> p >= leftPortionPageNumber && p<= rightPortionPageNumber)
+                .map((p) => {
+                    return <span className={cn({
+                        [styles.selectedPage]: currentPage===p
+                    }, styles.pageNumber)}
+                                 key={p}
+                                 onClick={(e) => {
+                                     onPageChanged(p);
+                                 }}>{p}</span>
+                })
+        }
+
+        {
+            portionCount > portionNumber &&
+            <button onClick={() => setPortionNumber(portionNumber + 1)}>NEXT</button>
+        }
 
     </div>
-
 }
 
-export default Paginator;
 
