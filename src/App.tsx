@@ -41,7 +41,6 @@ class App extends Component <AppType> {
                         <Navbar/>
                         <div className='app-wrapper-content'>
                             <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
-
                             <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
                             <Route path="/users" render={() => <UsersContainer/>}/>
                             <Route path="/login" render={() => <Login/>}/>
@@ -59,7 +58,7 @@ let AppContainer = compose(withRouter,
 
 export let SamuraiTSApp = () => {
     return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
