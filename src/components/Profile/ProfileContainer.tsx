@@ -9,8 +9,7 @@ import {compose} from 'redux';
 
 
 class ProfileContainer extends Component<CommonProfileContainerPropsType> {
-    componentDidMount() {
-        console.log(this.props.match.params);
+    refreshProfile(){
         let id = Number(this.props.match.params.userId)
         if (!id) {
             id = this.props.authorizedUserId /*? this.props.authorizedUserId : 17186 ;*/
@@ -22,9 +21,23 @@ class ProfileContainer extends Component<CommonProfileContainerPropsType> {
         this.props.getStatus(id)
     }
 
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<CommonProfileContainerPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        this.refreshProfile()
+    }
+
     render() {
         return <div>
-            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
+            <Profile {...this.props}
+                isOwner = {!this.props.match.params.userId}
+                     savePhoto={this.props.savePhoto}
+                     profile={this.props.profile}
+                     status={this.props.status}
+                     updateStatus={this.props.updateStatus}/>
         </div>
     }
 }
@@ -37,7 +50,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     isAuth: state.auth.isAuth
 })
 
-export default compose<ComponentType>(connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+export default compose<ComponentType>(connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}),
     withRouter, withAuthRedirect)(ProfileContainer)
 
 //types
@@ -55,7 +68,7 @@ type MapDispatchToPropsType = {
     updateStatus: (status: string) => void
 }
 
-type PathParamsType = {
+export type PathParamsType = {
     userId?: string
 }
 
