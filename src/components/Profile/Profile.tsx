@@ -1,16 +1,15 @@
 import React from 'react';
 import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfileType} from "../../redux/profile-reducer";
 import {Preloader} from "../common/Preloader/Preloader";
-import {PathParamsType} from "./ProfileContainer";
+import {ProfileType} from "../../api/api";
 
 type PropsType = {
     profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
-    isOwner: PathParamsType
-    savePhoto: (status: string) => void
+    isOwner: boolean
+    savePhoto: (file: File) => void
 }
 
 

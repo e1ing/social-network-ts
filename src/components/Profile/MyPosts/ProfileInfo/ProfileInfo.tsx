@@ -1,23 +1,26 @@
 import React, {ChangeEvent, FC} from 'react';
-import {ProfileType} from "../../../../redux/profile-reducer";
 import {Preloader} from "../../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../../asserts/images/user.jpg";
 import s from "./ProfileInfo.module.css"
 import {PathParamsType} from "../../ProfileContainer";
+import {ProfileType} from "../../../../api/api";
+import {savePhoto} from "../../../../redux/profile-reducer";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
-    isOwner: PathParamsType
-    savePhoto: (status: string)=> {}
+    // isOwner: PathParamsTypeb
+    isOwner: boolean
+    savePhoto: (file: File) => void
 }
 
 const ProfileInfo: FC<ProfileInfoPropsType> = ({profile,status, updateStatus, isOwner, savePhoto}) => {
-    if (!profile){
-        return <Preloader/>
-    }
+    if(!profile){
+    return <Preloader/>
+}
+
 
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files.length)

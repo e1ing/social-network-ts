@@ -1,30 +1,13 @@
 import {Dispatch} from "redux";
 import {v1} from "uuid";
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI, ProfileType} from "../api/api";
 
 export type PostType = {
     id: string
     message: string
     likesCount: number
 }
-export type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ProfileContactsType
-    photos: { small: string, large: string }
-}
-export type ProfileContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
+
 type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
@@ -73,7 +56,7 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
             }
         case "profile/SAVE_PHOTO_SUCCESS":
             return {
-                ...state, profile:{...state.profile, photos: action.photos}
+                ...state, profile:{...state.profile, photos: {...state.profile.photos, large: action.photos}}
             }
 
         default:
@@ -106,10 +89,10 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
     }
 }
 
-export const savePhoto = (status: string) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.updateStatus(status)
+export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+        dispatch(savePhotoSuccess(response.data.data.photos.large))
     }
 }
 

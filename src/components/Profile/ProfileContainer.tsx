@@ -2,10 +2,11 @@ import React, {Component, ComponentType} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {getStatus, getUserProfile, ProfileType, updateStatus} from "../../redux/profile-reducer";
+import {getStatus, getUserProfile, savePhoto, updateStatus} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
+import {ProfileType} from "../../api/api";
 
 
 class ProfileContainer extends Component<CommonProfileContainerPropsType> {
@@ -66,10 +67,12 @@ type MapDispatchToPropsType = {
     getUserProfile: (id: number) => void
     getStatus: (status: number) => void
     updateStatus: (status: string) => void
+    savePhoto: (file: File) => void
 }
 
 export type PathParamsType = {
     userId?: string
+    // userId?: number
 }
 
 type CommonProfileContainerPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType

@@ -5,38 +5,36 @@ type PhotosType = {
     small: string
     large: string
 }
-
-type GetUserResponseType = {
+type UserType = {
     id: number
     name: string
     status: string
     photos: PhotosType
     followed: boolean
 }
-
 type ResponseType<D={}> = {
     resultCode: number
     messages: Array<string>
     data: {D}
 }
-
-type ProfileResponseType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {}
+export type ProfileContactsType = {
     github: string
     vk: string
     facebook: string
     instagram: string
     twitter: string
-    website:string
+    website: string
     youtube: string
     mainLink: string
+}
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ProfileContactsType
     photos: PhotosType
 }
-
 
 const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
@@ -46,7 +44,7 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get<GetUserResponseType>(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<UserType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 return response.data
             })
@@ -65,10 +63,10 @@ export const usersAPI = {
 
 export const profileAPI = {
     getProfile(id: string) {
-        return instance.get<ProfileResponseType>(`profile/` + id)
+        return instance.get<ProfileType>(`profile/` + id)
     },
     getStatus(id: string) {
-        return instance.get<number>(`profile/status/` + id)
+        return instance.get(`profile/status/` + id)
     },
     updateStatus(status: string) {
         return instance.put<ResponseType>(`profile/status/`, {status})
@@ -76,13 +74,20 @@ export const profileAPI = {
     savePhoto(photoFile) {
         let formData = new FormData();
         formData.append("image", photoFile)
-        return instance.put<ResponseType<{ PhotosType }>>(`profile/photo/`, formData, {
+        return instance.put(`profile/photo/`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
     }
 
+}
+
+//types
+type UserAuthType = {
+    id: number
+    email: string
+    login: string
 }
 
 export const authAPI = {
@@ -93,9 +98,9 @@ export const authAPI = {
     login(email: string, password: string, rememberMe: boolean) {
         const data = {email, password, rememberMe}
         console.log('tut', data)
-        return instance.post("auth/login", data);
+        return instance.post<ResponseType<{userId:number}>>("auth/login", data);
     },
     logout() {
-        return instance.delete("auth/login");
+        return instance.delete<ResponseType>("auth/login");
     }
 }
