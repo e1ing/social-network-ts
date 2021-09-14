@@ -9,7 +9,6 @@ export type MessageType = {
     id: string
     message: string
 }
-export type InitialStatType = typeof initialState
 export type InitialStateType = typeof initialState
 type ActionsTypes = ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
 

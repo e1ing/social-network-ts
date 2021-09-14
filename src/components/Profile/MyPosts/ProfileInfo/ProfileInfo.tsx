@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, FC} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import {ProfileType} from "../../../../redux/profile-reducer";
 import {Preloader} from "../../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
@@ -11,7 +11,7 @@ type ProfileInfoPropsType = {
     status: string
     updateStatus: (status: string) => void
     isOwner: PathParamsType
-    savePhoto: ()
+    savePhoto: (status: string)=> {}
 }
 
 const ProfileInfo: FC<ProfileInfoPropsType> = ({profile,status, updateStatus, isOwner, savePhoto}) => {
@@ -19,7 +19,7 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile,status, updateStatus, is
         return <Preloader/>
     }
 
-    const onMainPhotoSelected = (e: ChangeEventHandler<HTMLInputElement>) => {
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files.length)
         {
             savePhoto(e.target.files[0])

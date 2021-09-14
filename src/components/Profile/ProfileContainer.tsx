@@ -9,11 +9,11 @@ import {compose} from 'redux';
 
 
 class ProfileContainer extends Component<CommonProfileContainerPropsType> {
-    refreshProfile(){
+    refreshProfile() {
         let id = Number(this.props.match.params.userId)
         if (!id) {
             id = this.props.authorizedUserId /*? this.props.authorizedUserId : 17186 ;*/
-            if(!id){
+            if (!id) {
                 this.props.history.push("/login")
             }
         }
@@ -33,7 +33,7 @@ class ProfileContainer extends Component<CommonProfileContainerPropsType> {
     render() {
         return <div>
             <Profile {...this.props}
-                isOwner = {!this.props.match.params.userId}
+                     isOwner={!this.props.match.params.userId}
                      savePhoto={this.props.savePhoto}
                      profile={this.props.profile}
                      status={this.props.status}
@@ -59,7 +59,7 @@ type ProfileContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
 type MapStateToPropsType = {
     profile: ProfileType | null
     status: string
-    authorizedUserId: number| null
+    authorizedUserId: number | null
     isAuth: boolean
 }
 type MapDispatchToPropsType = {
