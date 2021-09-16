@@ -28,7 +28,7 @@ const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = ({status, updateStatu
         <div>
             {!editMode &&
             <div>
-                <span onDoubleClick={activateEditMode}>{status || "----"}</span>
+               <b>Status: </b> <span onDoubleClick={activateEditMode}>{status || "----"}</span>
             </div>
             }
             {editMode &&

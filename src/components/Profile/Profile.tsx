@@ -10,15 +10,22 @@ type PropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType|null)=> void
 }
 
 
-const Profile: React.FC<PropsType> = ({profile, status, updateStatus,isOwner, savePhoto}) => {
+const Profile: React.FC<PropsType> = ({profile, status, updateStatus,isOwner, savePhoto, saveProfile}) => {
     if (!profile) {
         return <Preloader/>
     }
     return <div>
-        <ProfileInfo profile={profile} status={status} updateStatus={updateStatus} isOwner={isOwner} savePhoto={savePhoto}/>
+        <ProfileInfo profile={profile}
+                     status={status}
+                     updateStatus={updateStatus}
+                     isOwner={isOwner}
+                     savePhoto={savePhoto}
+                   /*  saveProfile = {saveProfile}*/
+        />
         <MyPostsContainer/>
     </div>
 }
