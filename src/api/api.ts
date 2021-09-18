@@ -107,3 +107,12 @@ export const authAPI = {
         return instance.delete<ResponseType>("auth/login");
     }
 }
+
+
+//types
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get(`/security/get-captcha-url`);
+    }
+}

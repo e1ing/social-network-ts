@@ -5,7 +5,7 @@ import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 
-export const Login: FC<LoginType> = ({isAuth, login}) => {
+export const Login: FC<LoginType> = ({isAuth, login, captchaUrl}) => {
 
     if (isAuth){
         return <Redirect to={"/profile"}/>
@@ -13,14 +13,13 @@ export const Login: FC<LoginType> = ({isAuth, login}) => {
 
     return <div>
         <h1> Log in </h1>
-        <LoginForm login={login}/>
+        <LoginForm login={login} captchaUrl={captchaUrl} />
     </div>
 }
 
-
-
 const mapStateToProps = (state: AppStateType): MapStateToPropsType =>  ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 })
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType , {}, AppStateType>(
@@ -32,20 +31,23 @@ type LoginType = MapStateToPropsType & MapDispatchToPropsType
 
 type MapStateToPropsType = {
     isAuth: boolean
+    captchaUrl: string
 }
 type MapDispatchToPropsType = {
     login: (email:string, password: string, rememberMe: boolean) => void
 }
 
-type PrType = {
-    login: (email:string, password: string, rememberMe: boolean) => void
+type LoginFormType = {
+    login: (email:string, password: string, rememberMe: boolean, captcha: string) => void
+    captchaUrl: string
 }
-export const LoginForm = (props:PrType ) => {
+export const LoginForm: FC<LoginFormType> = ({login, captchaUrl}) => {
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
             rememberMe: false,
+            captcha: ""
         },
         validate: (values) => {
             if (!values.email) {
@@ -56,7 +58,7 @@ export const LoginForm = (props:PrType ) => {
             }
         },
         onSubmit: (formData) => {
-            props.login(formData.email, formData.password, formData.rememberMe)
+            login(formData.email, formData.password, formData.rememberMe, formData.captcha)
         },
     });
 
@@ -73,6 +75,8 @@ export const LoginForm = (props:PrType ) => {
             <input type={"checkbox"}  checked={formik.values.rememberMe}
                    {...formik.getFieldProps("rememberMe")}/> remember me
         </div>
+       <img src={captchaUrl} {...formik.getFieldProps("captchaUrl")}/>
+        <input  placeholder={"Captcha"} type={"captcha"} {...formik.getFieldProps("captcha")}/>
         <div>
             <button type="submit">Submit</button>
         </div>
