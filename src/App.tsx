@@ -12,7 +12,6 @@ import store, {AppStateType} from "./redux/redux-store";
 import {Preloader} from "./components/common/Preloader/Preloader";
 import {getAuthUserData} from "./redux/auth-reducer";
 import {withSuspense} from "./hoc/withSuspense";
-import Profile from "./components/Profile/Profile";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -34,13 +33,7 @@ alert("Some error occured")
     }
     componentDidMount() {
         this.props.initializeApp();
-        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
-
-    componentWillUnmount(){
-        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
-    }
-
     render() {
         if (!this.props.initialized) {
             return <Preloader/>

@@ -2,9 +2,9 @@ import React, {ChangeEvent, FC, useState} from 'react';
 import {Preloader} from "../../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../../asserts/images/user.jpg";
-import s from "./ProfileInfo.module.css"
 import {ProfileType} from "../../../../api/api";
 import {ProfileDataForm} from './ProfileDataForm';
+import s from 'ProfileInfo.module.css'
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
@@ -14,7 +14,8 @@ type ProfileInfoPropsType = {
     savePhoto: (file: File) => void
 }
 
-const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status,
+                                                   updateStatus, isOwner, savePhoto}) => {
 
     const [editMode, setEditMode] = useState(false)
 

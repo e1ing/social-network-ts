@@ -1,17 +1,16 @@
 import {ProfileContactsType, ProfileType} from "../../../../api/api";
 import React, {FC} from "react";
 import {useFormik} from "formik";
-import {getUserProfile, saveProfile} from "../../../../redux/profile-reducer";
+import {getUserProfile} from "../../../../redux/profile-reducer";
 import {useDispatch} from "react-redux";
 import s from "ProfileInfo.module.css"
 
 type ProfileDataFormTypes = {
-    profile: ({fullName: string, lookingForAJob: string, skills: string, aboutMe: string})
+    profile: ProfileType /*({fullName: string, lookingForAJob: string, skills: string, aboutMe: string})*/
     isOwner: boolean
-    goToEditMode: () => void
-    contacts: ProfileContactsType
+    /*goToEditMode: () => void*/
 }
-export const ProfileDataForm: FC<ProfileDataFormTypes> = ({profile, isOwner, contacts}) => {
+export const ProfileDataForm: FC<ProfileDataFormTypes> = ({profile, isOwner}) => {
 
     const dispatch = useDispatch()
 
