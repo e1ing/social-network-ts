@@ -4,7 +4,7 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../../asserts/images/user.jpg";
 import {ProfileType} from "../../../../api/api";
 import {ProfileDataForm} from './ProfileDataForm';
-import s from 'ProfileInfo.module.css'
+import s from './ProfileInfo.module.css'
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null

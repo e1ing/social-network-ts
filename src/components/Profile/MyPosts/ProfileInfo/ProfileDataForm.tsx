@@ -3,7 +3,7 @@ import React, {FC} from "react";
 import {useFormik} from "formik";
 import {getUserProfile} from "../../../../redux/profile-reducer";
 import {useDispatch} from "react-redux";
-import s from "ProfileInfo.module.css"
+import s from "./ProfileInfo.module.css"
 
 type ProfileDataFormTypes = {
     profile: ProfileType /*({fullName: string, lookingForAJob: string, skills: string, aboutMe: string})*/
